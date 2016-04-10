@@ -1,3 +1,34 @@
 #!/bin/bash
 arguments=( "$@" )
-echo "${arguments[0]}"
+error="Usage: stats {-rows|-cols} [file]"
+fileError="stats: cannot read "
+rows=true
+file=true
+
+case "${arguments[0]}" in
+	"-r"*  )
+		rows=true ;;
+	"-c"* )
+		rows=false ;;
+		* )
+		echo $error
+		exit 1 ;;
+esac
+
+case $# in
+	1 )
+		file=false;;
+	2 )
+		filename="${arguments[1]}"
+		file=true ;;
+	* )
+		echo $error 
+		exit 1 ;;
+esac
+
+if [ ! -f "$filename" ]
+	then
+		echo $fileError "$filename"
+		exit 1
+fi
+
