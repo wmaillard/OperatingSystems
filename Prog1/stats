@@ -1,0 +1,3 @@
+#!/bin/bash
+arguments=( "$@" )
+echo "${arguments[0]}"

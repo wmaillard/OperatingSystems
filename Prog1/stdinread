@@ -1,0 +1,3 @@
+#!/bin/bash
+cat > TMP3
+cat TMP3
