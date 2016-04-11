@@ -39,9 +39,55 @@ if ! [ $file ]  && [ -r "$filename" ]
 		exit 1
 fi
 
-									# Read the data from either the file or STDIN
+# Read the data from either the file or STDIN
 
-while read line
-do
-	echo "$line"
-done < "${filename:-/dev/stdin}"
+if [ $file ];
+	then 
+		numLines=$(cat $filename | wc -l)
+	else
+		numLines=$(cat $(-/dev/stdin) | wc -l)
+fi
+
+echo $numLines
+
+if $rows 
+	then 
+		while read line
+		do
+			lineArray=($line)
+			echo "${lineArray[0]}"
+		done < "${filename:-/dev/stdin}"
+	else
+		count=1
+		while [ $count -le $numLines ]
+			do
+				echo $count
+				let count=count+1
+			done
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
