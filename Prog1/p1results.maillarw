@@ -3,16 +3,17 @@ Creating file1 file2 file3 file4 file5
 
 
 total 24
--rw-rw-r-- 1 will will  259 Apr 12 12:37 file1
--rw-rw-r-- 1 will will   49 Apr 12 12:37 file2
--rw-rw-r-- 1 will will    3 Apr 12 12:37 file3
--rw-rw-r-- 1 will will    0 Apr 12 12:37 file4
--rw-rw-r-- 1 will will 5831 Apr 12 12:37 file5
--rwxrwxr-x 1 will will 2642 Apr 12 12:37 stats
+-rw-rw-r-- 1 will will  259 Apr 12 12:41 file1
+-rw-rw-r-- 1 will will   49 Apr 12 12:41 file2
+-rw-rw-r-- 1 will will    3 Apr 12 12:41 file3
+-rw-rw-r-- 1 will will    0 Apr 12 12:41 file4
+-rw-rw-r-- 1 will will 5831 Apr 12 12:41 file5
+-rwxrwxr-x 1 will will 2658 Apr 12 12:41 stats
 
 
 --------------------------------------------------------------------------
 File 1 Statistics by Rows: 1 point per correct number: 18
+
 
 Average Median
 94	93	
@@ -30,15 +31,6 @@ Average Median
 --------------------------------------------------------------------------
 Check for Temporary Files: 5 points if no temp files
 
-1990tempData1
-1990tempData2
-1990tempData3
-1990tempData4
-1990tempData5
-1990tempData6
-1990tempData7
-1990tempData8
-1990tempData9
 file1
 file2
 file3
@@ -51,6 +43,7 @@ stats
 File 1 Statistics by Cols: 1 point per correct number: 18
 
 
+
 Averages:
 75	58	76	72	82	78	71	69	100	
 Medians:
@@ -60,24 +53,6 @@ Medians:
 --------------------------------------------------------------------------
 Check for Temporary Files: 5 points if no temp files
 
-1990tempData1
-1990tempData2
-1990tempData3
-1990tempData4
-1990tempData5
-1990tempData6
-1990tempData7
-1990tempData8
-1990tempData9
-2004tempData1
-2004tempData2
-2004tempData3
-2004tempData4
-2004tempData5
-2004tempData6
-2004tempData7
-2004tempData8
-2004tempData9
 file1
 file2
 file3
@@ -88,6 +63,7 @@ stats
 
 --------------------------------------------------------------------------
 File 2 Statistics by Rows: 1 point per correct number: 8
+
 
 Average Median
 94	95	
@@ -101,6 +77,7 @@ Average Median
 File 2 Statistics by Cols: 1 point per correct number: 8
 
 
+
 Averages:
 85	86	83	96	
 Medians:
@@ -110,6 +87,7 @@ Medians:
 --------------------------------------------------------------------------
 File 3 Statistics by Rows: 1 point per correct number: 2
 
+
 Average Median
 17	17	
 
@@ -117,6 +95,7 @@ Average Median
 
 --------------------------------------------------------------------------
 File 3 Statistics by Cols: 1 point per correct number: 2
+
 
 
 Averages:
@@ -128,6 +107,7 @@ Medians:
 --------------------------------------------------------------------------
 File 4 Statistics by Rows: lose 3 points for error or any number
 
+
 Average Median
 
 
@@ -135,7 +115,8 @@ Average Median
 --------------------------------------------------------------------------
 File 4 Statistics by Cols: lose 3 points for an error not from script
 
-./stats: line 100: 2065tempData1: No such file or directory
+./stats: line 100: 4245tempData1: No such file or directory
+
 
 Averages:
 
@@ -147,6 +128,7 @@ Medians:
 File 5 Statistics by Cols: 1 point per number: 4
 
 
+
 Averages:
 24950	49900	
 Medians:
@@ -156,36 +138,6 @@ Medians:
 --------------------------------------------------------------------------
 Check for Temporary Files: 5 points if no temp files
 
-1990tempData1
-1990tempData2
-1990tempData3
-1990tempData4
-1990tempData5
-1990tempData6
-1990tempData7
-1990tempData8
-1990tempData9
-2004tempData1
-2004tempData2
-2004tempData3
-2004tempData4
-2004tempData5
-2004tempData6
-2004tempData7
-2004tempData8
-2004tempData9
-2028tempData1
-2028tempData2
-2028tempData3
-2028tempData4
-2036tempData1
-2036tempData2
-2036tempData3
-2036tempData4
-2049tempData1
-2054tempData1
-2070tempData1
-2070tempData2
 file1
 file2
 file3
@@ -198,6 +150,7 @@ stats
 Good Syntax
 
 Standard Input on Rows: 2 points for exit value 0, 1 point for error text
+
 Average Median
 94	95	
 91	97	
@@ -209,6 +162,7 @@ Error Message:
 
 Standard Input on Cols: 2 points for exit value 0, 1 point for error text
 
+
 Averages:
 85	86	83	96	
 Medians:
@@ -218,6 +172,7 @@ Error Message:
 
 Option -cols: 2 points for exit value 0, 1 point for error text
 
+
 Averages:
 85	86	83	96	
 Medians:
@@ -226,6 +181,7 @@ Exit Value: 0
 Error Message:
 
 Option -rrrrrr: 2 points for exit value 0, 1 point for error text
+
 Average Median
 94	95	
 91	97	
@@ -237,6 +193,7 @@ Error Message:
 
 Option -cccccc: 3 points for exit value 0
 
+
 Averages:
 85	86	83	96	
 Medians:
@@ -245,6 +202,7 @@ Exit Value: 0
 Error Message:
 
 Option -r: 3 points for exit value 0
+
 Average Median
 94	95	
 91	97	
@@ -292,62 +250,6 @@ Error Message:
 --------------------------------------------------------------------------
 Check for Temporary Files: 5 points for no temp files
 
-1990tempData1
-1990tempData2
-1990tempData3
-1990tempData4
-1990tempData5
-1990tempData6
-1990tempData7
-1990tempData8
-1990tempData9
-2004tempData1
-2004tempData2
-2004tempData3
-2004tempData4
-2004tempData5
-2004tempData6
-2004tempData7
-2004tempData8
-2004tempData9
-2028tempData1
-2028tempData2
-2028tempData3
-2028tempData4
-2036tempData1
-2036tempData2
-2036tempData3
-2036tempData4
-2049tempData1
-2054tempData1
-2070tempData1
-2070tempData2
-2081tempData1
-2081tempData2
-2081tempData3
-2081tempData4
-2081tempfile
-2093tempData1
-2093tempData2
-2093tempData3
-2093tempData4
-2093tempfile
-2108tempData1
-2108tempData2
-2108tempData3
-2108tempData4
-2122tempData1
-2122tempData2
-2122tempData3
-2122tempData4
-2132tempData1
-2132tempData2
-2132tempData3
-2132tempData4
-2150tempData1
-2150tempData2
-2150tempData3
-2150tempData4
 file1
 file2
 file3
@@ -361,92 +263,6 @@ Simultaneous Runs
 
 
 Before Finishing
-1990tempData1
-1990tempData2
-1990tempData3
-1990tempData4
-1990tempData5
-1990tempData6
-1990tempData7
-1990tempData8
-1990tempData9
-2004tempData1
-2004tempData2
-2004tempData3
-2004tempData4
-2004tempData5
-2004tempData6
-2004tempData7
-2004tempData8
-2004tempData9
-2028tempData1
-2028tempData2
-2028tempData3
-2028tempData4
-2036tempData1
-2036tempData2
-2036tempData3
-2036tempData4
-2049tempData1
-2054tempData1
-2070tempData1
-2070tempData2
-2081tempData1
-2081tempData2
-2081tempData3
-2081tempData4
-2081tempfile
-2093tempData1
-2093tempData2
-2093tempData3
-2093tempData4
-2093tempfile
-2108tempData1
-2108tempData2
-2108tempData3
-2108tempData4
-2122tempData1
-2122tempData2
-2122tempData3
-2122tempData4
-2132tempData1
-2132tempData2
-2132tempData3
-2132tempData4
-2150tempData1
-2150tempData2
-2150tempData3
-2150tempData4
-2172tempData1
-2172tempData2
-2172tempData3
-2172tempData4
-2172tempData5
-2172tempData6
-2172tempData7
-2172tempData8
-2172tempData9
-2172tempfile
-2173tempData1
-2173tempData2
-2173tempData3
-2173tempData4
-2173tempData5
-2173tempData6
-2173tempData7
-2173tempData8
-2173tempData9
-2173tempfile
-2174tempData1
-2174tempData2
-2174tempData3
-2174tempData4
-2174tempData5
-2174tempData6
-2174tempData7
-2174tempData8
-2174tempData9
-2174tempfile
 file1
 file2
 file3
@@ -459,6 +275,7 @@ stats
 
 
 Run 1 Output: 5 points for succesful run 1
+
 Average Median
 94	93	
 86	84	
@@ -472,6 +289,7 @@ Average Median
 
 
 Run 2 Output: 5 points for succesful run 2
+
 Average Median
 94	93	
 86	84	
@@ -485,6 +303,7 @@ Average Median
 
 
 Run 3 Output: 5 points for succesful run 3
+
 Average Median
 94	93	
 86	84	
@@ -499,92 +318,6 @@ Average Median
 
 
 After Finishing: 5 points if no temp file
-1990tempData1
-1990tempData2
-1990tempData3
-1990tempData4
-1990tempData5
-1990tempData6
-1990tempData7
-1990tempData8
-1990tempData9
-2004tempData1
-2004tempData2
-2004tempData3
-2004tempData4
-2004tempData5
-2004tempData6
-2004tempData7
-2004tempData8
-2004tempData9
-2028tempData1
-2028tempData2
-2028tempData3
-2028tempData4
-2036tempData1
-2036tempData2
-2036tempData3
-2036tempData4
-2049tempData1
-2054tempData1
-2070tempData1
-2070tempData2
-2081tempData1
-2081tempData2
-2081tempData3
-2081tempData4
-2081tempfile
-2093tempData1
-2093tempData2
-2093tempData3
-2093tempData4
-2093tempfile
-2108tempData1
-2108tempData2
-2108tempData3
-2108tempData4
-2122tempData1
-2122tempData2
-2122tempData3
-2122tempData4
-2132tempData1
-2132tempData2
-2132tempData3
-2132tempData4
-2150tempData1
-2150tempData2
-2150tempData3
-2150tempData4
-2172tempData1
-2172tempData2
-2172tempData3
-2172tempData4
-2172tempData5
-2172tempData6
-2172tempData7
-2172tempData8
-2172tempData9
-2172tempfile
-2173tempData1
-2173tempData2
-2173tempData3
-2173tempData4
-2173tempData5
-2173tempData6
-2173tempData7
-2173tempData8
-2173tempData9
-2173tempfile
-2174tempData1
-2174tempData2
-2174tempData3
-2174tempData4
-2174tempData5
-2174tempData6
-2174tempData7
-2174tempData8
-2174tempData9
-2174tempfile
 file1
 file2
 file3
@@ -597,593 +330,6 @@ Trap Signals
 
 
 Before Kill
-1990tempData1
-1990tempData2
-1990tempData3
-1990tempData4
-1990tempData5
-1990tempData6
-1990tempData7
-1990tempData8
-1990tempData9
-2004tempData1
-2004tempData2
-2004tempData3
-2004tempData4
-2004tempData5
-2004tempData6
-2004tempData7
-2004tempData8
-2004tempData9
-2028tempData1
-2028tempData2
-2028tempData3
-2028tempData4
-2036tempData1
-2036tempData2
-2036tempData3
-2036tempData4
-2049tempData1
-2054tempData1
-2070tempData1
-2070tempData2
-2081tempData1
-2081tempData2
-2081tempData3
-2081tempData4
-2081tempfile
-2093tempData1
-2093tempData2
-2093tempData3
-2093tempData4
-2093tempfile
-2108tempData1
-2108tempData2
-2108tempData3
-2108tempData4
-2122tempData1
-2122tempData2
-2122tempData3
-2122tempData4
-2132tempData1
-2132tempData2
-2132tempData3
-2132tempData4
-2150tempData1
-2150tempData2
-2150tempData3
-2150tempData4
-2172tempData1
-2172tempData2
-2172tempData3
-2172tempData4
-2172tempData5
-2172tempData6
-2172tempData7
-2172tempData8
-2172tempData9
-2172tempfile
-2173tempData1
-2173tempData2
-2173tempData3
-2173tempData4
-2173tempData5
-2173tempData6
-2173tempData7
-2173tempData8
-2173tempData9
-2173tempfile
-2174tempData1
-2174tempData2
-2174tempData3
-2174tempData4
-2174tempData5
-2174tempData6
-2174tempData7
-2174tempData8
-2174tempData9
-2174tempfile
-2224tempData1
-2224tempData10
-2224tempData100
-2224tempData101
-2224tempData102
-2224tempData103
-2224tempData104
-2224tempData105
-2224tempData106
-2224tempData107
-2224tempData108
-2224tempData109
-2224tempData11
-2224tempData110
-2224tempData111
-2224tempData112
-2224tempData113
-2224tempData114
-2224tempData115
-2224tempData116
-2224tempData117
-2224tempData118
-2224tempData119
-2224tempData12
-2224tempData120
-2224tempData121
-2224tempData122
-2224tempData123
-2224tempData124
-2224tempData125
-2224tempData126
-2224tempData127
-2224tempData128
-2224tempData129
-2224tempData13
-2224tempData130
-2224tempData131
-2224tempData132
-2224tempData133
-2224tempData134
-2224tempData135
-2224tempData136
-2224tempData137
-2224tempData138
-2224tempData139
-2224tempData14
-2224tempData140
-2224tempData141
-2224tempData142
-2224tempData143
-2224tempData144
-2224tempData145
-2224tempData146
-2224tempData147
-2224tempData148
-2224tempData149
-2224tempData15
-2224tempData150
-2224tempData151
-2224tempData152
-2224tempData153
-2224tempData154
-2224tempData155
-2224tempData156
-2224tempData157
-2224tempData158
-2224tempData159
-2224tempData16
-2224tempData160
-2224tempData161
-2224tempData162
-2224tempData163
-2224tempData164
-2224tempData165
-2224tempData166
-2224tempData167
-2224tempData168
-2224tempData169
-2224tempData17
-2224tempData170
-2224tempData171
-2224tempData172
-2224tempData173
-2224tempData174
-2224tempData175
-2224tempData176
-2224tempData177
-2224tempData178
-2224tempData179
-2224tempData18
-2224tempData180
-2224tempData181
-2224tempData182
-2224tempData183
-2224tempData184
-2224tempData185
-2224tempData186
-2224tempData187
-2224tempData188
-2224tempData189
-2224tempData19
-2224tempData190
-2224tempData191
-2224tempData192
-2224tempData193
-2224tempData194
-2224tempData195
-2224tempData196
-2224tempData197
-2224tempData198
-2224tempData199
-2224tempData2
-2224tempData20
-2224tempData200
-2224tempData201
-2224tempData202
-2224tempData203
-2224tempData204
-2224tempData205
-2224tempData206
-2224tempData207
-2224tempData208
-2224tempData209
-2224tempData21
-2224tempData210
-2224tempData211
-2224tempData212
-2224tempData213
-2224tempData214
-2224tempData215
-2224tempData216
-2224tempData217
-2224tempData218
-2224tempData219
-2224tempData22
-2224tempData220
-2224tempData221
-2224tempData222
-2224tempData223
-2224tempData224
-2224tempData225
-2224tempData226
-2224tempData227
-2224tempData228
-2224tempData229
-2224tempData23
-2224tempData230
-2224tempData231
-2224tempData232
-2224tempData233
-2224tempData234
-2224tempData235
-2224tempData236
-2224tempData237
-2224tempData238
-2224tempData239
-2224tempData24
-2224tempData240
-2224tempData241
-2224tempData242
-2224tempData243
-2224tempData244
-2224tempData245
-2224tempData246
-2224tempData247
-2224tempData248
-2224tempData249
-2224tempData25
-2224tempData250
-2224tempData251
-2224tempData252
-2224tempData253
-2224tempData254
-2224tempData255
-2224tempData256
-2224tempData257
-2224tempData258
-2224tempData259
-2224tempData26
-2224tempData260
-2224tempData261
-2224tempData262
-2224tempData263
-2224tempData264
-2224tempData265
-2224tempData266
-2224tempData267
-2224tempData268
-2224tempData269
-2224tempData27
-2224tempData270
-2224tempData271
-2224tempData272
-2224tempData273
-2224tempData274
-2224tempData275
-2224tempData276
-2224tempData277
-2224tempData278
-2224tempData279
-2224tempData28
-2224tempData280
-2224tempData281
-2224tempData282
-2224tempData283
-2224tempData284
-2224tempData285
-2224tempData286
-2224tempData287
-2224tempData288
-2224tempData289
-2224tempData29
-2224tempData290
-2224tempData291
-2224tempData292
-2224tempData293
-2224tempData294
-2224tempData295
-2224tempData296
-2224tempData297
-2224tempData298
-2224tempData299
-2224tempData3
-2224tempData30
-2224tempData300
-2224tempData301
-2224tempData302
-2224tempData303
-2224tempData304
-2224tempData305
-2224tempData306
-2224tempData307
-2224tempData308
-2224tempData309
-2224tempData31
-2224tempData310
-2224tempData311
-2224tempData312
-2224tempData313
-2224tempData314
-2224tempData315
-2224tempData316
-2224tempData317
-2224tempData318
-2224tempData319
-2224tempData32
-2224tempData320
-2224tempData321
-2224tempData322
-2224tempData323
-2224tempData324
-2224tempData325
-2224tempData326
-2224tempData327
-2224tempData328
-2224tempData329
-2224tempData33
-2224tempData330
-2224tempData331
-2224tempData332
-2224tempData333
-2224tempData334
-2224tempData335
-2224tempData336
-2224tempData337
-2224tempData338
-2224tempData339
-2224tempData34
-2224tempData340
-2224tempData341
-2224tempData342
-2224tempData343
-2224tempData344
-2224tempData345
-2224tempData346
-2224tempData347
-2224tempData348
-2224tempData349
-2224tempData35
-2224tempData350
-2224tempData351
-2224tempData352
-2224tempData353
-2224tempData354
-2224tempData355
-2224tempData356
-2224tempData357
-2224tempData358
-2224tempData359
-2224tempData36
-2224tempData360
-2224tempData361
-2224tempData362
-2224tempData363
-2224tempData364
-2224tempData365
-2224tempData366
-2224tempData367
-2224tempData368
-2224tempData369
-2224tempData37
-2224tempData370
-2224tempData371
-2224tempData372
-2224tempData373
-2224tempData374
-2224tempData375
-2224tempData376
-2224tempData377
-2224tempData378
-2224tempData379
-2224tempData38
-2224tempData380
-2224tempData381
-2224tempData382
-2224tempData383
-2224tempData384
-2224tempData385
-2224tempData386
-2224tempData387
-2224tempData388
-2224tempData389
-2224tempData39
-2224tempData390
-2224tempData391
-2224tempData392
-2224tempData393
-2224tempData394
-2224tempData395
-2224tempData396
-2224tempData397
-2224tempData398
-2224tempData399
-2224tempData4
-2224tempData40
-2224tempData400
-2224tempData401
-2224tempData402
-2224tempData403
-2224tempData404
-2224tempData405
-2224tempData406
-2224tempData407
-2224tempData408
-2224tempData409
-2224tempData41
-2224tempData410
-2224tempData411
-2224tempData412
-2224tempData413
-2224tempData414
-2224tempData415
-2224tempData416
-2224tempData417
-2224tempData418
-2224tempData419
-2224tempData42
-2224tempData420
-2224tempData421
-2224tempData422
-2224tempData423
-2224tempData424
-2224tempData425
-2224tempData426
-2224tempData427
-2224tempData428
-2224tempData429
-2224tempData43
-2224tempData430
-2224tempData431
-2224tempData432
-2224tempData433
-2224tempData434
-2224tempData435
-2224tempData436
-2224tempData437
-2224tempData438
-2224tempData439
-2224tempData44
-2224tempData440
-2224tempData441
-2224tempData442
-2224tempData443
-2224tempData444
-2224tempData445
-2224tempData446
-2224tempData447
-2224tempData448
-2224tempData449
-2224tempData45
-2224tempData450
-2224tempData451
-2224tempData452
-2224tempData453
-2224tempData454
-2224tempData455
-2224tempData456
-2224tempData457
-2224tempData458
-2224tempData459
-2224tempData46
-2224tempData460
-2224tempData461
-2224tempData462
-2224tempData463
-2224tempData464
-2224tempData465
-2224tempData466
-2224tempData467
-2224tempData468
-2224tempData469
-2224tempData47
-2224tempData470
-2224tempData471
-2224tempData472
-2224tempData473
-2224tempData474
-2224tempData475
-2224tempData476
-2224tempData477
-2224tempData478
-2224tempData479
-2224tempData48
-2224tempData480
-2224tempData481
-2224tempData482
-2224tempData483
-2224tempData484
-2224tempData485
-2224tempData486
-2224tempData487
-2224tempData488
-2224tempData489
-2224tempData49
-2224tempData490
-2224tempData491
-2224tempData492
-2224tempData493
-2224tempData494
-2224tempData495
-2224tempData496
-2224tempData497
-2224tempData498
-2224tempData499
-2224tempData5
-2224tempData50
-2224tempData500
-2224tempData51
-2224tempData52
-2224tempData53
-2224tempData54
-2224tempData55
-2224tempData56
-2224tempData57
-2224tempData58
-2224tempData59
-2224tempData6
-2224tempData60
-2224tempData61
-2224tempData62
-2224tempData63
-2224tempData64
-2224tempData65
-2224tempData66
-2224tempData67
-2224tempData68
-2224tempData69
-2224tempData7
-2224tempData70
-2224tempData71
-2224tempData72
-2224tempData73
-2224tempData74
-2224tempData75
-2224tempData76
-2224tempData77
-2224tempData78
-2224tempData79
-2224tempData8
-2224tempData80
-2224tempData81
-2224tempData82
-2224tempData83
-2224tempData84
-2224tempData85
-2224tempData86
-2224tempData87
-2224tempData88
-2224tempData89
-2224tempData9
-2224tempData90
-2224tempData91
-2224tempData92
-2224tempData93
-2224tempData94
-2224tempData95
-2224tempData96
-2224tempData97
-2224tempData98
-2224tempData99
-2224tempfile
 file1
 file2
 file3
@@ -1192,599 +338,13 @@ file5
 stats
 
   PID TTY          TIME CMD
-  914 pts/1    00:00:00 p1gradingscript
- 3026 pts/1    00:00:00 ps
+ 3098 pts/1    00:00:00 git-credential-
+ 3104 pts/1    00:00:00 p1gradingscript
+ 4919 pts/1    00:00:00 ps
 24283 pts/1    00:00:00 bash
 
 
 After Kill: 8 points if no temp files
-1990tempData1
-1990tempData2
-1990tempData3
-1990tempData4
-1990tempData5
-1990tempData6
-1990tempData7
-1990tempData8
-1990tempData9
-2004tempData1
-2004tempData2
-2004tempData3
-2004tempData4
-2004tempData5
-2004tempData6
-2004tempData7
-2004tempData8
-2004tempData9
-2028tempData1
-2028tempData2
-2028tempData3
-2028tempData4
-2036tempData1
-2036tempData2
-2036tempData3
-2036tempData4
-2049tempData1
-2054tempData1
-2070tempData1
-2070tempData2
-2081tempData1
-2081tempData2
-2081tempData3
-2081tempData4
-2081tempfile
-2093tempData1
-2093tempData2
-2093tempData3
-2093tempData4
-2093tempfile
-2108tempData1
-2108tempData2
-2108tempData3
-2108tempData4
-2122tempData1
-2122tempData2
-2122tempData3
-2122tempData4
-2132tempData1
-2132tempData2
-2132tempData3
-2132tempData4
-2150tempData1
-2150tempData2
-2150tempData3
-2150tempData4
-2172tempData1
-2172tempData2
-2172tempData3
-2172tempData4
-2172tempData5
-2172tempData6
-2172tempData7
-2172tempData8
-2172tempData9
-2172tempfile
-2173tempData1
-2173tempData2
-2173tempData3
-2173tempData4
-2173tempData5
-2173tempData6
-2173tempData7
-2173tempData8
-2173tempData9
-2173tempfile
-2174tempData1
-2174tempData2
-2174tempData3
-2174tempData4
-2174tempData5
-2174tempData6
-2174tempData7
-2174tempData8
-2174tempData9
-2174tempfile
-2224tempData1
-2224tempData10
-2224tempData100
-2224tempData101
-2224tempData102
-2224tempData103
-2224tempData104
-2224tempData105
-2224tempData106
-2224tempData107
-2224tempData108
-2224tempData109
-2224tempData11
-2224tempData110
-2224tempData111
-2224tempData112
-2224tempData113
-2224tempData114
-2224tempData115
-2224tempData116
-2224tempData117
-2224tempData118
-2224tempData119
-2224tempData12
-2224tempData120
-2224tempData121
-2224tempData122
-2224tempData123
-2224tempData124
-2224tempData125
-2224tempData126
-2224tempData127
-2224tempData128
-2224tempData129
-2224tempData13
-2224tempData130
-2224tempData131
-2224tempData132
-2224tempData133
-2224tempData134
-2224tempData135
-2224tempData136
-2224tempData137
-2224tempData138
-2224tempData139
-2224tempData14
-2224tempData140
-2224tempData141
-2224tempData142
-2224tempData143
-2224tempData144
-2224tempData145
-2224tempData146
-2224tempData147
-2224tempData148
-2224tempData149
-2224tempData15
-2224tempData150
-2224tempData151
-2224tempData152
-2224tempData153
-2224tempData154
-2224tempData155
-2224tempData156
-2224tempData157
-2224tempData158
-2224tempData159
-2224tempData16
-2224tempData160
-2224tempData161
-2224tempData162
-2224tempData163
-2224tempData164
-2224tempData165
-2224tempData166
-2224tempData167
-2224tempData168
-2224tempData169
-2224tempData17
-2224tempData170
-2224tempData171
-2224tempData172
-2224tempData173
-2224tempData174
-2224tempData175
-2224tempData176
-2224tempData177
-2224tempData178
-2224tempData179
-2224tempData18
-2224tempData180
-2224tempData181
-2224tempData182
-2224tempData183
-2224tempData184
-2224tempData185
-2224tempData186
-2224tempData187
-2224tempData188
-2224tempData189
-2224tempData19
-2224tempData190
-2224tempData191
-2224tempData192
-2224tempData193
-2224tempData194
-2224tempData195
-2224tempData196
-2224tempData197
-2224tempData198
-2224tempData199
-2224tempData2
-2224tempData20
-2224tempData200
-2224tempData201
-2224tempData202
-2224tempData203
-2224tempData204
-2224tempData205
-2224tempData206
-2224tempData207
-2224tempData208
-2224tempData209
-2224tempData21
-2224tempData210
-2224tempData211
-2224tempData212
-2224tempData213
-2224tempData214
-2224tempData215
-2224tempData216
-2224tempData217
-2224tempData218
-2224tempData219
-2224tempData22
-2224tempData220
-2224tempData221
-2224tempData222
-2224tempData223
-2224tempData224
-2224tempData225
-2224tempData226
-2224tempData227
-2224tempData228
-2224tempData229
-2224tempData23
-2224tempData230
-2224tempData231
-2224tempData232
-2224tempData233
-2224tempData234
-2224tempData235
-2224tempData236
-2224tempData237
-2224tempData238
-2224tempData239
-2224tempData24
-2224tempData240
-2224tempData241
-2224tempData242
-2224tempData243
-2224tempData244
-2224tempData245
-2224tempData246
-2224tempData247
-2224tempData248
-2224tempData249
-2224tempData25
-2224tempData250
-2224tempData251
-2224tempData252
-2224tempData253
-2224tempData254
-2224tempData255
-2224tempData256
-2224tempData257
-2224tempData258
-2224tempData259
-2224tempData26
-2224tempData260
-2224tempData261
-2224tempData262
-2224tempData263
-2224tempData264
-2224tempData265
-2224tempData266
-2224tempData267
-2224tempData268
-2224tempData269
-2224tempData27
-2224tempData270
-2224tempData271
-2224tempData272
-2224tempData273
-2224tempData274
-2224tempData275
-2224tempData276
-2224tempData277
-2224tempData278
-2224tempData279
-2224tempData28
-2224tempData280
-2224tempData281
-2224tempData282
-2224tempData283
-2224tempData284
-2224tempData285
-2224tempData286
-2224tempData287
-2224tempData288
-2224tempData289
-2224tempData29
-2224tempData290
-2224tempData291
-2224tempData292
-2224tempData293
-2224tempData294
-2224tempData295
-2224tempData296
-2224tempData297
-2224tempData298
-2224tempData299
-2224tempData3
-2224tempData30
-2224tempData300
-2224tempData301
-2224tempData302
-2224tempData303
-2224tempData304
-2224tempData305
-2224tempData306
-2224tempData307
-2224tempData308
-2224tempData309
-2224tempData31
-2224tempData310
-2224tempData311
-2224tempData312
-2224tempData313
-2224tempData314
-2224tempData315
-2224tempData316
-2224tempData317
-2224tempData318
-2224tempData319
-2224tempData32
-2224tempData320
-2224tempData321
-2224tempData322
-2224tempData323
-2224tempData324
-2224tempData325
-2224tempData326
-2224tempData327
-2224tempData328
-2224tempData329
-2224tempData33
-2224tempData330
-2224tempData331
-2224tempData332
-2224tempData333
-2224tempData334
-2224tempData335
-2224tempData336
-2224tempData337
-2224tempData338
-2224tempData339
-2224tempData34
-2224tempData340
-2224tempData341
-2224tempData342
-2224tempData343
-2224tempData344
-2224tempData345
-2224tempData346
-2224tempData347
-2224tempData348
-2224tempData349
-2224tempData35
-2224tempData350
-2224tempData351
-2224tempData352
-2224tempData353
-2224tempData354
-2224tempData355
-2224tempData356
-2224tempData357
-2224tempData358
-2224tempData359
-2224tempData36
-2224tempData360
-2224tempData361
-2224tempData362
-2224tempData363
-2224tempData364
-2224tempData365
-2224tempData366
-2224tempData367
-2224tempData368
-2224tempData369
-2224tempData37
-2224tempData370
-2224tempData371
-2224tempData372
-2224tempData373
-2224tempData374
-2224tempData375
-2224tempData376
-2224tempData377
-2224tempData378
-2224tempData379
-2224tempData38
-2224tempData380
-2224tempData381
-2224tempData382
-2224tempData383
-2224tempData384
-2224tempData385
-2224tempData386
-2224tempData387
-2224tempData388
-2224tempData389
-2224tempData39
-2224tempData390
-2224tempData391
-2224tempData392
-2224tempData393
-2224tempData394
-2224tempData395
-2224tempData396
-2224tempData397
-2224tempData398
-2224tempData399
-2224tempData4
-2224tempData40
-2224tempData400
-2224tempData401
-2224tempData402
-2224tempData403
-2224tempData404
-2224tempData405
-2224tempData406
-2224tempData407
-2224tempData408
-2224tempData409
-2224tempData41
-2224tempData410
-2224tempData411
-2224tempData412
-2224tempData413
-2224tempData414
-2224tempData415
-2224tempData416
-2224tempData417
-2224tempData418
-2224tempData419
-2224tempData42
-2224tempData420
-2224tempData421
-2224tempData422
-2224tempData423
-2224tempData424
-2224tempData425
-2224tempData426
-2224tempData427
-2224tempData428
-2224tempData429
-2224tempData43
-2224tempData430
-2224tempData431
-2224tempData432
-2224tempData433
-2224tempData434
-2224tempData435
-2224tempData436
-2224tempData437
-2224tempData438
-2224tempData439
-2224tempData44
-2224tempData440
-2224tempData441
-2224tempData442
-2224tempData443
-2224tempData444
-2224tempData445
-2224tempData446
-2224tempData447
-2224tempData448
-2224tempData449
-2224tempData45
-2224tempData450
-2224tempData451
-2224tempData452
-2224tempData453
-2224tempData454
-2224tempData455
-2224tempData456
-2224tempData457
-2224tempData458
-2224tempData459
-2224tempData46
-2224tempData460
-2224tempData461
-2224tempData462
-2224tempData463
-2224tempData464
-2224tempData465
-2224tempData466
-2224tempData467
-2224tempData468
-2224tempData469
-2224tempData47
-2224tempData470
-2224tempData471
-2224tempData472
-2224tempData473
-2224tempData474
-2224tempData475
-2224tempData476
-2224tempData477
-2224tempData478
-2224tempData479
-2224tempData48
-2224tempData480
-2224tempData481
-2224tempData482
-2224tempData483
-2224tempData484
-2224tempData485
-2224tempData486
-2224tempData487
-2224tempData488
-2224tempData489
-2224tempData49
-2224tempData490
-2224tempData491
-2224tempData492
-2224tempData493
-2224tempData494
-2224tempData495
-2224tempData496
-2224tempData497
-2224tempData498
-2224tempData499
-2224tempData5
-2224tempData50
-2224tempData500
-2224tempData51
-2224tempData52
-2224tempData53
-2224tempData54
-2224tempData55
-2224tempData56
-2224tempData57
-2224tempData58
-2224tempData59
-2224tempData6
-2224tempData60
-2224tempData61
-2224tempData62
-2224tempData63
-2224tempData64
-2224tempData65
-2224tempData66
-2224tempData67
-2224tempData68
-2224tempData69
-2224tempData7
-2224tempData70
-2224tempData71
-2224tempData72
-2224tempData73
-2224tempData74
-2224tempData75
-2224tempData76
-2224tempData77
-2224tempData78
-2224tempData79
-2224tempData8
-2224tempData80
-2224tempData81
-2224tempData82
-2224tempData83
-2224tempData84
-2224tempData85
-2224tempData86
-2224tempData87
-2224tempData88
-2224tempData89
-2224tempData9
-2224tempData90
-2224tempData91
-2224tempData92
-2224tempData93
-2224tempData94
-2224tempData95
-2224tempData96
-2224tempData97
-2224tempData98
-2224tempData99
-2224tempfile
 file1
 file2
 file3
@@ -1793,8 +353,9 @@ file5
 stats
 
   PID TTY          TIME CMD
-  914 pts/1    00:00:00 p1gradingscript
- 3029 pts/1    00:00:00 ps
+ 3098 pts/1    00:00:00 git-credential-
+ 3104 pts/1    00:00:00 p1gradingscript
+ 4922 pts/1    00:00:00 ps
 24283 pts/1    00:00:00 bash
 
 
