@@ -1,0 +1,13 @@
+		awk '{for (i = 1; i <= NF; i++){ data[i][FNR] = $i;
+		averages[i] += $i;}}; 				
+		END{for (i in averages) averages[i] /= NR; 
+		print "Averages:";
+		for(i = 0; i < NF; i++){  
+		printf "%f", averages[i + 1]; 
+		printf "\t";
+		}
+		print "";
+		n = asort(data[1]);
+		for(i = 1; i <= FNR; i++){
+			print data[1][i];
+		}}' $filename

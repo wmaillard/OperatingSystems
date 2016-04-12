@@ -1,0 +1,28 @@
+
+my_var=$(/dev/stdin)
+echo $my_var
+$(cat $(-/dev/stdin)) | tee -a lookatme
+
+
+
+# maybe just read stdin to file then read the file
+if $rows 
+	then 
+		while read line
+		do
+			lineArray=($line)
+			echo "${lineArray[0]}"
+		done < "${filename:-/dev/stdin}"
+	else
+		count=0
+		while [ $count -lt $numLines ]
+			do
+				let count=count+1
+				while read line
+				do
+					echo sup
+					lineArray=($line)
+					echo "${lineArray[$count]}"
+				done < "${filename:-/dev/stdin}"	
+			done
+fi

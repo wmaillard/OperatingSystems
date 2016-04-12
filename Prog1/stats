@@ -6,6 +6,8 @@ rows=true
 file=true
 
 
+
+
 case "${arguments[0]}" in			# Checks to see if the options are for rows or columns
 	 "-r"*)							# and sets the rows bool accordingly or returns an error
 		rows=true ;;
@@ -17,23 +19,26 @@ case "${arguments[0]}" in			# Checks to see if the options are for rows or colum
 esac
 
 									# Checks to see if a filename is included and if so sets the
-									# filename variable.  Returns an error if too many variables.
+									# filename variable.  Otherwise creates a temp file with stdin data
+									# Returns an error if too many variables.
 
 case $# in
 	1 )
-		file=false
-		unset filename ;;			# unsets filename just in case because line 47 is dependent on set vs unset
+		usingTemp=true
+		cat /dev/stdin > "$$tempfile"
+		filename="$$tempfile" ;;			
 	2 )
-		filename="${arguments[1]}"
-		file=true ;;
+		usingTemp=false
+		filename="${arguments[1]}";;
 	* )
 		echo $error 
 		exit 1 ;;
 esac
 
-									# If there is a filename given but it is not readable, return an error
+
+									# If there is a problem reading the file, return an error
 									
-if ! [ $file ]  && [ -r "$filename" ]   
+if ! [ -r "$filename" ]   
 	then
 		echo $fileError "$filename"
 		exit 1
@@ -41,41 +46,71 @@ fi
 
 # Read the data from either the file or STDIN
 
-if [ $file ];
-	then 
-		numLines=$(cat $filename | wc -l)
-	else
-		numLines=$(cat $(-/dev/stdin) | wc -l)
-fi
+numLines=$(cat $filename | wc -l)
 
-echo $numLines
 
-if $rows 
-	then 
-		while read line
-		do
-			lineArray=($line)
-			echo "${lineArray[0]}"
-		done < "${filename:-/dev/stdin}"
-	else
-		count=1
-		while [ $count -le $numLines ]
+
+if  [ $rows == true ]
+	then
+		while read line 
 			do
-				echo $count
-				let count=count+1
+				sum=0
+				i = 0
+				for num in $line
+				do
+					echo $num
+					sum=$(($sum + $num))
+				done
+				echo "$i Sum: $sum"
+			done < $filename
+	else
+		sort -o sortedFile $filename 
+		line=$(head -n 1 $filename)
+		i=1;
+											# Make a file for each column and sort it
+		for column in $line
+			do
+				
+				cut -d$'\t' -f$i < $filename > "$$column$i"
+				sort -o "$$column$i" "$$column$i"
+				((i++))
 			done
+		echo this is the number of items in a column: $i
+		if [ $((i%2)) -eq 0 ]
+			then
+				mid=$((i/2+1))
+				echo mid $mid
+			else
+				mid=$((i/2))
+				echo mid $mid
+		fi
+		i=1
+		for column in $line
+			do
+				j=1
+				while read theLines
+					do
+					if [ $j -eq $mid ]
+						then
+						echo median: $theLines
+					fi
+					((j++))
+				done < "$$column$i"
+			((i++))
+			done
+		
+			# expr 5 \* \( 4 + 2 \)
+		
+		
+
 fi
 
+rm -f $$*
 
 
 
 
-
-
-
-
-
-
+# { sum += $i; n++ } END { if (n > 0) print sum / n; -v var="$numLines"
 
 
 
