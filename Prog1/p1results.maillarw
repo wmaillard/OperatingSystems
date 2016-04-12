@@ -2,13 +2,13 @@
 Creating file1 file2 file3 file4 file5
 
 
-total 24
--rw-rw-r-- 1 will will  259 Apr 12 16:41 file1
--rw-rw-r-- 1 will will   49 Apr 12 16:41 file2
--rw-rw-r-- 1 will will    3 Apr 12 16:41 file3
--rw-rw-r-- 1 will will    0 Apr 12 16:41 file4
--rw-rw-r-- 1 will will 5831 Apr 12 16:41 file5
--rwxrwxr-x 1 will will 2661 Apr 12 16:41 stats
+total 40
+-rw-rw----. 1 maillarw upg57728  259 Apr 12 16:51 file1
+-rw-rw----. 1 maillarw upg57728   49 Apr 12 16:51 file2
+-rw-rw----. 1 maillarw upg57728    3 Apr 12 16:51 file3
+-rw-rw----. 1 maillarw upg57728    0 Apr 12 16:51 file4
+-rw-rw----. 1 maillarw upg57728 5831 Apr 12 16:51 file5
+-rwxrwx---. 1 maillarw upg57728 2663 Apr 12 16:51 stats
 
 
 --------------------------------------------------------------------------
@@ -112,7 +112,7 @@ Average Median
 --------------------------------------------------------------------------
 File 4 Statistics by Cols: lose 3 points for an error not from script
 
-./stats: line 100: 6962tempData1: No such file or directory
+./stats: line 100: 28987tempData1: No such file or directory
 
 
 Averages:
@@ -235,7 +235,7 @@ File Not Readable: 2 points for error msg, 2 points for program halting
 
 Exit Value: 1
 Error Message:
-stats: cannot read file3
+./stats: cannot read file3
 
 
 
@@ -322,6 +322,263 @@ Trap Signals
 
 
 Before Kill
+29150tempData1
+29150tempData10
+29150tempData100
+29150tempData101
+29150tempData102
+29150tempData103
+29150tempData104
+29150tempData105
+29150tempData106
+29150tempData107
+29150tempData108
+29150tempData109
+29150tempData11
+29150tempData110
+29150tempData111
+29150tempData112
+29150tempData113
+29150tempData114
+29150tempData115
+29150tempData116
+29150tempData117
+29150tempData118
+29150tempData119
+29150tempData12
+29150tempData120
+29150tempData121
+29150tempData122
+29150tempData123
+29150tempData124
+29150tempData125
+29150tempData126
+29150tempData127
+29150tempData128
+29150tempData129
+29150tempData13
+29150tempData130
+29150tempData131
+29150tempData132
+29150tempData133
+29150tempData134
+29150tempData135
+29150tempData136
+29150tempData137
+29150tempData138
+29150tempData139
+29150tempData14
+29150tempData140
+29150tempData141
+29150tempData142
+29150tempData143
+29150tempData144
+29150tempData145
+29150tempData146
+29150tempData147
+29150tempData148
+29150tempData149
+29150tempData15
+29150tempData150
+29150tempData151
+29150tempData152
+29150tempData153
+29150tempData154
+29150tempData155
+29150tempData156
+29150tempData157
+29150tempData158
+29150tempData159
+29150tempData16
+29150tempData160
+29150tempData161
+29150tempData162
+29150tempData163
+29150tempData164
+29150tempData165
+29150tempData166
+29150tempData167
+29150tempData168
+29150tempData169
+29150tempData17
+29150tempData170
+29150tempData171
+29150tempData172
+29150tempData173
+29150tempData174
+29150tempData175
+29150tempData176
+29150tempData177
+29150tempData178
+29150tempData179
+29150tempData18
+29150tempData180
+29150tempData181
+29150tempData182
+29150tempData183
+29150tempData184
+29150tempData185
+29150tempData186
+29150tempData187
+29150tempData188
+29150tempData189
+29150tempData19
+29150tempData190
+29150tempData191
+29150tempData192
+29150tempData193
+29150tempData194
+29150tempData195
+29150tempData196
+29150tempData197
+29150tempData198
+29150tempData199
+29150tempData2
+29150tempData20
+29150tempData200
+29150tempData201
+29150tempData202
+29150tempData203
+29150tempData204
+29150tempData205
+29150tempData206
+29150tempData207
+29150tempData208
+29150tempData209
+29150tempData21
+29150tempData210
+29150tempData211
+29150tempData212
+29150tempData213
+29150tempData214
+29150tempData215
+29150tempData216
+29150tempData217
+29150tempData218
+29150tempData219
+29150tempData22
+29150tempData220
+29150tempData221
+29150tempData222
+29150tempData223
+29150tempData224
+29150tempData225
+29150tempData226
+29150tempData227
+29150tempData228
+29150tempData229
+29150tempData23
+29150tempData230
+29150tempData231
+29150tempData232
+29150tempData233
+29150tempData234
+29150tempData235
+29150tempData236
+29150tempData237
+29150tempData238
+29150tempData239
+29150tempData24
+29150tempData240
+29150tempData241
+29150tempData242
+29150tempData243
+29150tempData244
+29150tempData245
+29150tempData246
+29150tempData247
+29150tempData248
+29150tempData249
+29150tempData25
+29150tempData250
+29150tempData251
+29150tempData252
+29150tempData253
+29150tempData254
+29150tempData255
+29150tempData256
+29150tempData26
+29150tempData27
+29150tempData28
+29150tempData29
+29150tempData3
+29150tempData30
+29150tempData31
+29150tempData32
+29150tempData33
+29150tempData34
+29150tempData35
+29150tempData36
+29150tempData37
+29150tempData38
+29150tempData39
+29150tempData4
+29150tempData40
+29150tempData41
+29150tempData42
+29150tempData43
+29150tempData44
+29150tempData45
+29150tempData46
+29150tempData47
+29150tempData48
+29150tempData49
+29150tempData5
+29150tempData50
+29150tempData51
+29150tempData52
+29150tempData53
+29150tempData54
+29150tempData55
+29150tempData56
+29150tempData57
+29150tempData58
+29150tempData59
+29150tempData6
+29150tempData60
+29150tempData61
+29150tempData62
+29150tempData63
+29150tempData64
+29150tempData65
+29150tempData66
+29150tempData67
+29150tempData68
+29150tempData69
+29150tempData7
+29150tempData70
+29150tempData71
+29150tempData72
+29150tempData73
+29150tempData74
+29150tempData75
+29150tempData76
+29150tempData77
+29150tempData78
+29150tempData79
+29150tempData8
+29150tempData80
+29150tempData81
+29150tempData82
+29150tempData83
+29150tempData84
+29150tempData85
+29150tempData86
+29150tempData87
+29150tempData88
+29150tempData89
+29150tempData9
+29150tempData90
+29150tempData91
+29150tempData92
+29150tempData93
+29150tempData94
+29150tempData95
+29150tempData96
+29150tempData97
+29150tempData98
+29150tempData99
+29150tempfile
 file1
 file2
 file3
@@ -330,10 +587,10 @@ file5
 stats
 
   PID TTY          TIME CMD
- 3098 pts/1    00:00:00 git-credential-
- 5869 pts/1    00:00:00 p1gradingscript
- 7632 pts/1    00:00:00 ps
-24283 pts/1    00:00:00 bash
+26516 pts/21   00:00:00 tcsh
+27886 pts/21   00:00:00 p1gradingscript
+29150 pts/21   00:00:00 stats
+29206 pts/21   00:00:00 ps
 
 
 After Kill: 8 points if no temp files
@@ -345,9 +602,8 @@ file5
 stats
 
   PID TTY          TIME CMD
- 3098 pts/1    00:00:00 git-credential-
- 5869 pts/1    00:00:00 p1gradingscript
- 7635 pts/1    00:00:00 ps
-24283 pts/1    00:00:00 bash
+26516 pts/21   00:00:00 tcsh
+27886 pts/21   00:00:00 p1gradingscript
+29232 pts/21   00:00:00 ps
 
 
