@@ -3,12 +3,12 @@ Creating file1 file2 file3 file4 file5
 
 
 total 24
--rw-rw-r-- 1 will will  259 Apr 12 12:41 file1
--rw-rw-r-- 1 will will   49 Apr 12 12:41 file2
--rw-rw-r-- 1 will will    3 Apr 12 12:41 file3
--rw-rw-r-- 1 will will    0 Apr 12 12:41 file4
--rw-rw-r-- 1 will will 5831 Apr 12 12:41 file5
--rwxrwxr-x 1 will will 2658 Apr 12 12:41 stats
+-rw-rw-r-- 1 will will  259 Apr 12 16:41 file1
+-rw-rw-r-- 1 will will   49 Apr 12 16:41 file2
+-rw-rw-r-- 1 will will    3 Apr 12 16:41 file3
+-rw-rw-r-- 1 will will    0 Apr 12 16:41 file4
+-rw-rw-r-- 1 will will 5831 Apr 12 16:41 file5
+-rwxrwxr-x 1 will will 2661 Apr 12 16:41 stats
 
 
 --------------------------------------------------------------------------
@@ -49,7 +49,6 @@ Averages:
 Medians:
 80	57	83	73	88	79	80	71	100	
 
-
 --------------------------------------------------------------------------
 Check for Temporary Files: 5 points if no temp files
 
@@ -83,7 +82,6 @@ Averages:
 Medians:
 95	94	93	99	
 
-
 --------------------------------------------------------------------------
 File 3 Statistics by Rows: 1 point per correct number: 2
 
@@ -103,7 +101,6 @@ Averages:
 Medians:
 17	
 
-
 --------------------------------------------------------------------------
 File 4 Statistics by Rows: lose 3 points for error or any number
 
@@ -115,13 +112,12 @@ Average Median
 --------------------------------------------------------------------------
 File 4 Statistics by Cols: lose 3 points for an error not from script
 
-./stats: line 100: 4245tempData1: No such file or directory
+./stats: line 100: 6962tempData1: No such file or directory
 
 
 Averages:
 
 Medians:
-
 
 
 --------------------------------------------------------------------------
@@ -133,7 +129,6 @@ Averages:
 24950	49900	
 Medians:
 25000	50000	
-
 
 --------------------------------------------------------------------------
 Check for Temporary Files: 5 points if no temp files
@@ -166,8 +161,7 @@ Standard Input on Cols: 2 points for exit value 0, 1 point for error text
 Averages:
 85	86	83	96	
 Medians:
-95	94	93	99	
-Exit Value: 0
+95	94	93	99	Exit Value: 0
 Error Message:
 
 Option -cols: 2 points for exit value 0, 1 point for error text
@@ -176,8 +170,7 @@ Option -cols: 2 points for exit value 0, 1 point for error text
 Averages:
 85	86	83	96	
 Medians:
-95	94	93	99	
-Exit Value: 0
+95	94	93	99	Exit Value: 0
 Error Message:
 
 Option -rrrrrr: 2 points for exit value 0, 1 point for error text
@@ -197,8 +190,7 @@ Option -cccccc: 3 points for exit value 0
 Averages:
 85	86	83	96	
 Medians:
-95	94	93	99	
-Exit Value: 0
+95	94	93	99	Exit Value: 0
 Error Message:
 
 Option -r: 3 points for exit value 0
@@ -217,33 +209,33 @@ Error Message:
 Bad Syntax
 
 Too Few Arguments: 1 point for usage text, 2 points for exit value 1
-Usage: stats {-rows|-cols} [file]
 Exit Value: 1
 Error Message:
+Usage: stats {-rows|-cols} [file]
 
 Too Many Arguments: 1 point for usage text, 2 points for exit value 1
-Usage: stats {-rows|-cols} [file]
 Exit Value: 1
 Error Message:
+Usage: stats {-rows|-cols} [file]
 
 Wrong Format: 1 point for usage text, 2 points for exit value 1
-Usage: stats {-rows|-cols} [file]
 Exit Value: 1
 Error Message:
+Usage: stats {-rows|-cols} [file]
 
 Bad Option: 1 point for usage text, 2 points for exit value 1
-Usage: stats {-rows|-cols} [file]
 Exit Value: 1
 Error Message:
+Usage: stats {-rows|-cols} [file]
 
 
 --------------------------------------------------------------------------
 File Not Readable: 2 points for error msg, 2 points for program halting
 
 
-stats: cannot read file3
 Exit Value: 1
 Error Message:
+stats: cannot read file3
 
 
 
@@ -339,8 +331,8 @@ stats
 
   PID TTY          TIME CMD
  3098 pts/1    00:00:00 git-credential-
- 3104 pts/1    00:00:00 p1gradingscript
- 4919 pts/1    00:00:00 ps
+ 5869 pts/1    00:00:00 p1gradingscript
+ 7632 pts/1    00:00:00 ps
 24283 pts/1    00:00:00 bash
 
 
@@ -354,8 +346,8 @@ stats
 
   PID TTY          TIME CMD
  3098 pts/1    00:00:00 git-credential-
- 3104 pts/1    00:00:00 p1gradingscript
- 4922 pts/1    00:00:00 ps
+ 5869 pts/1    00:00:00 p1gradingscript
+ 7635 pts/1    00:00:00 ps
 24283 pts/1    00:00:00 bash
 
 

@@ -5,7 +5,7 @@ trap "rm -f $$*; exit 1" INT HUP TERM
 
 arguments=( "$@" )
 error="Usage: stats {-rows|-cols} [file]"
-fileError="stats: cannot read "
+fileError="./stats: cannot read "
 rows=true
 file=true
 
@@ -18,7 +18,7 @@ case "${arguments[0]}" in			# Checks to see if the options are for rows or colum
 	"-c"*)
 		rows=false ;;
 		*)
-		echo $error 
+		>&2 echo $error 
 		exit 1 ;;
 esac
 
@@ -35,7 +35,7 @@ case $# in
 		usingTemp=false
 		filename="${arguments[1]}";;
 	* )
-		echo $error 
+		>&2 echo $error 
 		exit 1 ;;
 esac
 
@@ -44,7 +44,7 @@ esac
 									
 if ! [ -r "$filename" ]   
 	then
-		echo $fileError "$filename"
+		>&2 echo $fileError "$filename"
 		exit 1
 fi
 
@@ -156,7 +156,6 @@ if [ $rows == "false" ]
 			do
 			printf "%d\t" $meds
 			done
-	echo ""
 fi
 
 rm -f $$*
