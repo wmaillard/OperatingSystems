@@ -109,15 +109,21 @@ while [ $i -le $numFiles ]
 		
 mid=$((numItems/2+1))
 i=1
-echo Medians: 
+if [ $rows == "true" ]
+	then
+		echo Average Median
+	else
+		echo Averages:
+fi
 while [ $i -le $numFiles ]
 	do
 		sum=0;
 		j=1
 		while read theLines
 			do
+			((sum+=theLines))
+			
 			if [ $j -eq $mid ]
-				((sum+=theLines))
 				then
 				if [ $rows == "false" ]
 					then
@@ -129,11 +135,28 @@ while [ $i -le $numFiles ]
 			((j++))
 		done < "$$tempData$i"
 		mean=$(((sum+(numItems/2))/numItems))
-		echo mean: $mean
-		echo median: $median
+		if [ $rows == "false" ]
+			then
+				medians[$i]=$median
+				printf "%d\t" $mean
+			else
+				printf "%d\t" $mean $median
+				printf "\n"
+		fi
+
 	((i++))
 	done
 echo ""
+
+if [ $rows == "false" ]
+	then
+		echo Medians:
+		for meds in "${medians[@]}"
+			do
+			printf "%d\t" $meds
+			done
+	echo ""
+fi
 
 rm -f $$*
 
