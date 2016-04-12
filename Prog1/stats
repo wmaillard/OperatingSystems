@@ -75,7 +75,6 @@ if  [ $rows == true ]
 			numItems=$j
 			
 	else
-		sort -o sortedFile $filename 
 		line=$(head -n 1 $filename)
 		i=0;
 											# Make a file for each column and sort it
@@ -103,16 +102,19 @@ fi
 i=1
 while [ $i -le $numFiles ] 
 	do
-		sort -o "$$tempData$i" "$$tempData$i"
+		sort -n -o "$$tempData$i" "$$tempData$i"
 		((i++))
 	done
 		
-mid=$((numItems/2+1))
+mid=$(((numItems/2)+1))
+
 i=1
 if [ $rows == "true" ]
 	then
+		echo ""
 		echo Average Median
 	else
+		echo ""
 		echo Averages:
 fi
 while [ $i -le $numFiles ]
@@ -122,13 +124,12 @@ while [ $i -le $numFiles ]
 		while read theLines
 			do
 			((sum+=theLines))
-			
-			if [ $j -eq $mid ]
+			if (( j == mid ))
 				then
 				if [ $rows == "false" ]
 					then
 					median=$theLines
-					else
+				else
 					median=$theLines
 				fi
 			fi
