@@ -2,23 +2,13 @@
 Creating file1 file2 file3 file4 file5
 
 
-<<<<<<< HEAD
-total 24
--rw-rw-r-- 1 will will  259 Apr 12 17:05 file1
--rw-rw-r-- 1 will will   49 Apr 12 17:05 file2
--rw-rw-r-- 1 will will    3 Apr 12 17:05 file3
--rw-rw-r-- 1 will will    0 Apr 12 17:05 file4
--rw-rw-r-- 1 will will 5831 Apr 12 17:05 file5
--rwxrwxr-x 1 will will 2547 Apr 12 17:05 stats
-=======
 total 40
--rw-rw----. 1 maillarw upg57728  259 Apr 12 16:51 file1
--rw-rw----. 1 maillarw upg57728   49 Apr 12 16:51 file2
--rw-rw----. 1 maillarw upg57728    3 Apr 12 16:51 file3
--rw-rw----. 1 maillarw upg57728    0 Apr 12 16:51 file4
--rw-rw----. 1 maillarw upg57728 5831 Apr 12 16:51 file5
--rwxrwx---. 1 maillarw upg57728 2663 Apr 12 16:51 stats
->>>>>>> 039612036e01ef0f08128adaa63d17a58605046d
+-rw-rw----. 1 maillarw upg57728  259 Apr 17 12:08 file1
+-rw-rw----. 1 maillarw upg57728   49 Apr 17 12:08 file2
+-rw-rw----. 1 maillarw upg57728    3 Apr 17 12:08 file3
+-rw-rw----. 1 maillarw upg57728    0 Apr 17 12:08 file4
+-rw-rw----. 1 maillarw upg57728 5831 Apr 17 12:08 file5
+-rwxrwx---. 1 maillarw upg57728 2564 Apr 17 12:08 stats
 
 
 --------------------------------------------------------------------------
@@ -112,13 +102,7 @@ Average Median
 --------------------------------------------------------------------------
 File 4 Statistics by Cols: lose 3 points for an error not from script
 
-<<<<<<< HEAD
-./stats: line 98: 10781tempData1: No such file or directory
-=======
-./stats: line 100: 28987tempData1: No such file or directory
-
-
->>>>>>> 039612036e01ef0f08128adaa63d17a58605046d
+./stats: line 91: 4828tempData1: No such file or directory
 Averages:
 
 Medians:
@@ -312,263 +296,331 @@ Trap Signals
 
 
 Before Kill
-29150tempData1
-29150tempData10
-29150tempData100
-29150tempData101
-29150tempData102
-29150tempData103
-29150tempData104
-29150tempData105
-29150tempData106
-29150tempData107
-29150tempData108
-29150tempData109
-29150tempData11
-29150tempData110
-29150tempData111
-29150tempData112
-29150tempData113
-29150tempData114
-29150tempData115
-29150tempData116
-29150tempData117
-29150tempData118
-29150tempData119
-29150tempData12
-29150tempData120
-29150tempData121
-29150tempData122
-29150tempData123
-29150tempData124
-29150tempData125
-29150tempData126
-29150tempData127
-29150tempData128
-29150tempData129
-29150tempData13
-29150tempData130
-29150tempData131
-29150tempData132
-29150tempData133
-29150tempData134
-29150tempData135
-29150tempData136
-29150tempData137
-29150tempData138
-29150tempData139
-29150tempData14
-29150tempData140
-29150tempData141
-29150tempData142
-29150tempData143
-29150tempData144
-29150tempData145
-29150tempData146
-29150tempData147
-29150tempData148
-29150tempData149
-29150tempData15
-29150tempData150
-29150tempData151
-29150tempData152
-29150tempData153
-29150tempData154
-29150tempData155
-29150tempData156
-29150tempData157
-29150tempData158
-29150tempData159
-29150tempData16
-29150tempData160
-29150tempData161
-29150tempData162
-29150tempData163
-29150tempData164
-29150tempData165
-29150tempData166
-29150tempData167
-29150tempData168
-29150tempData169
-29150tempData17
-29150tempData170
-29150tempData171
-29150tempData172
-29150tempData173
-29150tempData174
-29150tempData175
-29150tempData176
-29150tempData177
-29150tempData178
-29150tempData179
-29150tempData18
-29150tempData180
-29150tempData181
-29150tempData182
-29150tempData183
-29150tempData184
-29150tempData185
-29150tempData186
-29150tempData187
-29150tempData188
-29150tempData189
-29150tempData19
-29150tempData190
-29150tempData191
-29150tempData192
-29150tempData193
-29150tempData194
-29150tempData195
-29150tempData196
-29150tempData197
-29150tempData198
-29150tempData199
-29150tempData2
-29150tempData20
-29150tempData200
-29150tempData201
-29150tempData202
-29150tempData203
-29150tempData204
-29150tempData205
-29150tempData206
-29150tempData207
-29150tempData208
-29150tempData209
-29150tempData21
-29150tempData210
-29150tempData211
-29150tempData212
-29150tempData213
-29150tempData214
-29150tempData215
-29150tempData216
-29150tempData217
-29150tempData218
-29150tempData219
-29150tempData22
-29150tempData220
-29150tempData221
-29150tempData222
-29150tempData223
-29150tempData224
-29150tempData225
-29150tempData226
-29150tempData227
-29150tempData228
-29150tempData229
-29150tempData23
-29150tempData230
-29150tempData231
-29150tempData232
-29150tempData233
-29150tempData234
-29150tempData235
-29150tempData236
-29150tempData237
-29150tempData238
-29150tempData239
-29150tempData24
-29150tempData240
-29150tempData241
-29150tempData242
-29150tempData243
-29150tempData244
-29150tempData245
-29150tempData246
-29150tempData247
-29150tempData248
-29150tempData249
-29150tempData25
-29150tempData250
-29150tempData251
-29150tempData252
-29150tempData253
-29150tempData254
-29150tempData255
-29150tempData256
-29150tempData26
-29150tempData27
-29150tempData28
-29150tempData29
-29150tempData3
-29150tempData30
-29150tempData31
-29150tempData32
-29150tempData33
-29150tempData34
-29150tempData35
-29150tempData36
-29150tempData37
-29150tempData38
-29150tempData39
-29150tempData4
-29150tempData40
-29150tempData41
-29150tempData42
-29150tempData43
-29150tempData44
-29150tempData45
-29150tempData46
-29150tempData47
-29150tempData48
-29150tempData49
-29150tempData5
-29150tempData50
-29150tempData51
-29150tempData52
-29150tempData53
-29150tempData54
-29150tempData55
-29150tempData56
-29150tempData57
-29150tempData58
-29150tempData59
-29150tempData6
-29150tempData60
-29150tempData61
-29150tempData62
-29150tempData63
-29150tempData64
-29150tempData65
-29150tempData66
-29150tempData67
-29150tempData68
-29150tempData69
-29150tempData7
-29150tempData70
-29150tempData71
-29150tempData72
-29150tempData73
-29150tempData74
-29150tempData75
-29150tempData76
-29150tempData77
-29150tempData78
-29150tempData79
-29150tempData8
-29150tempData80
-29150tempData81
-29150tempData82
-29150tempData83
-29150tempData84
-29150tempData85
-29150tempData86
-29150tempData87
-29150tempData88
-29150tempData89
-29150tempData9
-29150tempData90
-29150tempData91
-29150tempData92
-29150tempData93
-29150tempData94
-29150tempData95
-29150tempData96
-29150tempData97
-29150tempData98
-29150tempData99
-29150tempfile
+5047tempData1
+5047tempData10
+5047tempData100
+5047tempData101
+5047tempData102
+5047tempData103
+5047tempData104
+5047tempData105
+5047tempData106
+5047tempData107
+5047tempData108
+5047tempData109
+5047tempData11
+5047tempData110
+5047tempData111
+5047tempData112
+5047tempData113
+5047tempData114
+5047tempData115
+5047tempData116
+5047tempData117
+5047tempData118
+5047tempData119
+5047tempData12
+5047tempData120
+5047tempData121
+5047tempData122
+5047tempData123
+5047tempData124
+5047tempData125
+5047tempData126
+5047tempData127
+5047tempData128
+5047tempData129
+5047tempData13
+5047tempData130
+5047tempData131
+5047tempData132
+5047tempData133
+5047tempData134
+5047tempData135
+5047tempData136
+5047tempData137
+5047tempData138
+5047tempData139
+5047tempData14
+5047tempData140
+5047tempData141
+5047tempData142
+5047tempData143
+5047tempData144
+5047tempData145
+5047tempData146
+5047tempData147
+5047tempData148
+5047tempData149
+5047tempData15
+5047tempData150
+5047tempData151
+5047tempData152
+5047tempData153
+5047tempData154
+5047tempData155
+5047tempData156
+5047tempData157
+5047tempData158
+5047tempData159
+5047tempData16
+5047tempData160
+5047tempData161
+5047tempData162
+5047tempData163
+5047tempData164
+5047tempData165
+5047tempData166
+5047tempData167
+5047tempData168
+5047tempData169
+5047tempData17
+5047tempData170
+5047tempData171
+5047tempData172
+5047tempData173
+5047tempData174
+5047tempData175
+5047tempData176
+5047tempData177
+5047tempData178
+5047tempData179
+5047tempData18
+5047tempData180
+5047tempData181
+5047tempData182
+5047tempData183
+5047tempData184
+5047tempData185
+5047tempData186
+5047tempData187
+5047tempData188
+5047tempData189
+5047tempData19
+5047tempData190
+5047tempData191
+5047tempData192
+5047tempData193
+5047tempData194
+5047tempData195
+5047tempData196
+5047tempData197
+5047tempData198
+5047tempData199
+5047tempData2
+5047tempData20
+5047tempData200
+5047tempData201
+5047tempData202
+5047tempData203
+5047tempData204
+5047tempData205
+5047tempData206
+5047tempData207
+5047tempData208
+5047tempData209
+5047tempData21
+5047tempData210
+5047tempData211
+5047tempData212
+5047tempData213
+5047tempData214
+5047tempData215
+5047tempData216
+5047tempData217
+5047tempData218
+5047tempData219
+5047tempData22
+5047tempData220
+5047tempData221
+5047tempData222
+5047tempData223
+5047tempData224
+5047tempData225
+5047tempData226
+5047tempData227
+5047tempData228
+5047tempData229
+5047tempData23
+5047tempData230
+5047tempData231
+5047tempData232
+5047tempData233
+5047tempData234
+5047tempData235
+5047tempData236
+5047tempData237
+5047tempData238
+5047tempData239
+5047tempData24
+5047tempData240
+5047tempData241
+5047tempData242
+5047tempData243
+5047tempData244
+5047tempData245
+5047tempData246
+5047tempData247
+5047tempData248
+5047tempData249
+5047tempData25
+5047tempData250
+5047tempData251
+5047tempData252
+5047tempData253
+5047tempData254
+5047tempData255
+5047tempData256
+5047tempData257
+5047tempData258
+5047tempData259
+5047tempData26
+5047tempData260
+5047tempData261
+5047tempData262
+5047tempData263
+5047tempData264
+5047tempData265
+5047tempData266
+5047tempData267
+5047tempData268
+5047tempData269
+5047tempData27
+5047tempData270
+5047tempData271
+5047tempData272
+5047tempData273
+5047tempData274
+5047tempData275
+5047tempData276
+5047tempData277
+5047tempData278
+5047tempData279
+5047tempData28
+5047tempData280
+5047tempData281
+5047tempData282
+5047tempData283
+5047tempData284
+5047tempData285
+5047tempData286
+5047tempData287
+5047tempData288
+5047tempData289
+5047tempData29
+5047tempData290
+5047tempData291
+5047tempData292
+5047tempData293
+5047tempData294
+5047tempData295
+5047tempData296
+5047tempData297
+5047tempData298
+5047tempData299
+5047tempData3
+5047tempData30
+5047tempData300
+5047tempData301
+5047tempData302
+5047tempData303
+5047tempData304
+5047tempData305
+5047tempData306
+5047tempData307
+5047tempData308
+5047tempData309
+5047tempData31
+5047tempData310
+5047tempData311
+5047tempData312
+5047tempData313
+5047tempData314
+5047tempData315
+5047tempData316
+5047tempData317
+5047tempData318
+5047tempData319
+5047tempData32
+5047tempData320
+5047tempData321
+5047tempData322
+5047tempData323
+5047tempData324
+5047tempData33
+5047tempData34
+5047tempData35
+5047tempData36
+5047tempData37
+5047tempData38
+5047tempData39
+5047tempData4
+5047tempData40
+5047tempData41
+5047tempData42
+5047tempData43
+5047tempData44
+5047tempData45
+5047tempData46
+5047tempData47
+5047tempData48
+5047tempData49
+5047tempData5
+5047tempData50
+5047tempData51
+5047tempData52
+5047tempData53
+5047tempData54
+5047tempData55
+5047tempData56
+5047tempData57
+5047tempData58
+5047tempData59
+5047tempData6
+5047tempData60
+5047tempData61
+5047tempData62
+5047tempData63
+5047tempData64
+5047tempData65
+5047tempData66
+5047tempData67
+5047tempData68
+5047tempData69
+5047tempData7
+5047tempData70
+5047tempData71
+5047tempData72
+5047tempData73
+5047tempData74
+5047tempData75
+5047tempData76
+5047tempData77
+5047tempData78
+5047tempData79
+5047tempData8
+5047tempData80
+5047tempData81
+5047tempData82
+5047tempData83
+5047tempData84
+5047tempData85
+5047tempData86
+5047tempData87
+5047tempData88
+5047tempData89
+5047tempData9
+5047tempData90
+5047tempData91
+5047tempData92
+5047tempData93
+5047tempData94
+5047tempData95
+5047tempData96
+5047tempData97
+5047tempData98
+5047tempData99
+5047tempfile
 file1
 file2
 file3
@@ -577,16 +629,10 @@ file5
 stats
 
   PID TTY          TIME CMD
-<<<<<<< HEAD
- 7722 pts/15   00:00:00 bash
- 9690 pts/15   00:00:00 p1gradingscript
-11452 pts/15   00:00:00 ps
-=======
-26516 pts/21   00:00:00 tcsh
-27886 pts/21   00:00:00 p1gradingscript
-29150 pts/21   00:00:00 stats
-29206 pts/21   00:00:00 ps
->>>>>>> 039612036e01ef0f08128adaa63d17a58605046d
+ 3491 pts/10   00:00:00 tcsh
+ 3645 pts/10   00:00:00 p1gradingscript
+ 5047 pts/10   00:00:00 stats
+ 5060 pts/10   00:00:00 ps
 
 
 After Kill: 8 points if no temp files
@@ -598,14 +644,8 @@ file5
 stats
 
   PID TTY          TIME CMD
-<<<<<<< HEAD
- 7722 pts/15   00:00:00 bash
- 9690 pts/15   00:00:00 p1gradingscript
-11455 pts/15   00:00:00 ps
-=======
-26516 pts/21   00:00:00 tcsh
-27886 pts/21   00:00:00 p1gradingscript
-29232 pts/21   00:00:00 ps
->>>>>>> 039612036e01ef0f08128adaa63d17a58605046d
+ 3491 pts/10   00:00:00 tcsh
+ 3645 pts/10   00:00:00 p1gradingscript
+ 5240 pts/10   00:00:00 ps
 
 
