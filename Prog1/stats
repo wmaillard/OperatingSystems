@@ -1,6 +1,6 @@
 #!/bin/bash
 
-trap "rm -f $$*; exit 1" INT HUP TERM
+trap "rm -f $$*; exit 1" INT HUP TERM		# Remove temp files if program is interupted
 
 
 arguments=( "$@" )
