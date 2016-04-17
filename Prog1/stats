@@ -1,6 +1,6 @@
 #!/bin/bash
 
-trap "rm -f $$*; exit 1" INT HUP TERM		# Remove temp files if program is interupted
+trap "rm -f $$*; exit 1" INT HUP TERM		# Remove temp files if program is interrupted
 
 
 arguments=( "$@" )
@@ -13,7 +13,7 @@ file=true
 
 
 case "${arguments[0]}" in			# Checks to see if the options are for rows or columns
-	 "-r"*)							# and sets the rows bool accordingly or returns an error
+	 "-r"*)							# and sets the rows bool accordingly (for later use) or returns an error
 		rows=true ;;
 	"-c"*)
 		rows=false ;;
@@ -23,7 +23,9 @@ case "${arguments[0]}" in			# Checks to see if the options are for rows or colum
 esac
 
 									# Checks to see if a filename is included and if so sets the
-									# filename variable.  Otherwise creates a temp file with stdin data
+									# filename variable.  Otherwise creates a temp file with stdin data.
+									# This allows the same functions to run on either case, a file input
+									# or STDIN input.
 									# Returns an error if too many variables.
 
 case $# in
@@ -48,7 +50,7 @@ if ! [ -r "$filename" ]
 		exit 1
 fi
 
-									# Read the data from either the file
+									# Read the data from the file (either given or created file)
 
 numLines=$(cat $filename | wc -l)
 
@@ -76,6 +78,8 @@ if  [ $rows == true ]
 		line=$(head -n 1 $filename)
 		i=0;
 											# Make a file for each column and sort it
+											# This eliminates the need for difficult to follow
+											# nested loops for locating data within columns
 		for column in $line
 			do
 				((i++))
@@ -94,8 +98,9 @@ if  [ $rows == true ]
 		numFiles=$i
 		
 fi
-		
-i=1												# Sort the contents of the files
+												# Sort the contents of the files
+												# so that we can find the median easily
+i=1												
 while [ $i -le $numFiles ] 
 	do
 		sort -n -o "$$tempData$i" "$$tempData$i"
@@ -105,7 +110,7 @@ while [ $i -le $numFiles ]
 mid=$(((numItems/2)+1))							# Midpoint for median
 
 i=1
-if [ $rows == "true" ]							# Output for rows or columns
+if [ $rows == "true" ]							# On screen output for rows or columns
 	then
 		echo Average Median
 	else
@@ -115,8 +120,8 @@ while [ $i -le $numFiles ]
 	do
 		sum=0;
 		j=1
-		while read theLines
-			do
+		while read theLines						# Calculate the sum of each row or line
+			do									# and catch the median when you pass it
 			((sum+=theLines))
 			if (( j == mid ))
 				then
@@ -129,7 +134,8 @@ while [ $i -le $numFiles ]
 			fi
 			((j++))
 		done < "$$tempData$i"
-		mean=$(((sum+(numItems/2))/numItems))
+		mean=$(((sum+(numItems/2))/numItems)) 	# Calculate the mean from the sum
+												# Just formatting conditionals
 		if [ $rows == "false" ]
 			then
 				medians[$i]=$median
@@ -142,7 +148,7 @@ while [ $i -le $numFiles ]
 	((i++))
 	done
 echo ""
-
+												# More formatting
 if [ $rows == "false" ]
 	then
 		echo Medians:
@@ -153,4 +159,4 @@ if [ $rows == "false" ]
 		printf "\n"
 fi
 
-rm -f $$* 									# Remove temp files
+rm -f $$* 										# Remove temp files
