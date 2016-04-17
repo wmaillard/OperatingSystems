@@ -48,7 +48,7 @@ if ! [ -r "$filename" ]
 		exit 1
 fi
 
-# Read the data from either the file or STDIN
+									# Read the data from either the file
 
 numLines=$(cat $filename | wc -l)
 
@@ -66,8 +66,6 @@ if  [ $rows == true ]
 					do
 					((j++))
 					echo "$num" >> "$$tempData$i"
-
-					# sort -t$'\t' -o "row$i" "row$i"
 					done
 				
 			done < $filename
@@ -90,24 +88,19 @@ if  [ $rows == true ]
 			done < "$$tempData1"
 		numFiles=$i
 		numItems=$j
-
-			# expr 5 \* \( 4 + 2 \)
-		
-		
-
 fi
-
-i=1
+		
+i=1												# Sort the contents of the files
 while [ $i -le $numFiles ] 
 	do
 		sort -n -o "$$tempData$i" "$$tempData$i"
 		((i++))
 	done
 		
-mid=$(((numItems/2)+1))
+mid=$(((numItems/2)+1))							# Midpoint for median
 
 i=1
-if [ $rows == "true" ]
+if [ $rows == "true" ]							#Output for rows or columns
 	then
 		echo Average Median
 	else
@@ -154,24 +147,4 @@ if [ $rows == "false" ]
 			done
 fi
 
-rm -f $$*
-
-
-
-
-# { sum += $i; n++ } END { if (n > 0) print sum / n; -v var="$numLines"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+rm -f $$* 									# Remove temp files
