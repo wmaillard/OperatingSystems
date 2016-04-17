@@ -81,13 +81,18 @@ if  [ $rows == true ]
 				((i++))
 				cut -d$'\t' -f$i < $filename > "$$tempData$i"
 			done
-		j=0
-		while read line
-			do
-				((j++))
-			done < "$$tempData1"
+		if [ -f "$$tempData1" ]
+			then
+			j=0
+			while read line
+				do
+					((j++))
+				done < "$$tempData1"
+			numItems=$j
+		fi
+		
 		numFiles=$i
-		numItems=$j
+		
 fi
 		
 i=1												# Sort the contents of the files
@@ -100,7 +105,7 @@ while [ $i -le $numFiles ]
 mid=$(((numItems/2)+1))							# Midpoint for median
 
 i=1
-if [ $rows == "true" ]							#Output for rows or columns
+if [ $rows == "true" ]							# Output for rows or columns
 	then
 		echo Average Median
 	else
@@ -145,6 +150,7 @@ if [ $rows == "false" ]
 			do
 			printf "%d\t" $meds
 			done
+		printf "\n"
 fi
 
 rm -f $$* 									# Remove temp files
