@@ -1,0 +1,8 @@
+ROOM NAME: Dungeon
+CONNECTION 1: Secret_Passage
+CONNECTION 2: Garden
+CONNECTION 3: Games_Room
+CONNECTION 4: Chamber
+CONNECTION 5: Parlour
+CONNECTION 6: Kitchen
+ROOM TYPE: MID_ROOM

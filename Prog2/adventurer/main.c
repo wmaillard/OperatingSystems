@@ -6,18 +6,116 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void createFiles();
+char *createFiles();
 void sayCurDir(); //for debugging
 void makeRoom (char dirName[80], int theRooms[7], int section, int name);
+char *userInterface(char *curRoom, char *connections);
 
 int main()
 {
     printf("Hello world!\n");
-    createFiles();
+
+    char *curRoom = createFiles();
+
+    char dirName[80];
+    strcpy(dirName, "maillarw.rooms.");
+    sprintf(dirName + strlen(dirName), "%ld/%s", (long) getpid(), curRoom);
+
+
+    char buff[200];
+    char connections[256];
+
+
+    FILE *fp = fopen(dirName, "r");
+    fgets(buff, 200, fp);
+
+    int i = 0;  //All this just to get the connecting rooms, I miss javascript
+    while(buff[5] != 'T'){
+    char connection[200];
+    if(buff[0] == 'C'){
+        int spaces = 0;
+        int j = 0;
+        while(spaces < 2){
+            if(buff[j] == ' '){
+                spaces++;
+            }
+            j++;
+        }
+        int k = 0;
+        do{
+            connection[k] = buff[j];
+            j++;
+            k++;
+        } while(buff[j] != '\n');
+        connection[k] = '\0';
+        if(i <= 1){
+            strcpy(connections, connection);
+        }
+        else
+            sprintf(connections + strlen(connections), ", %s", connection);
+
+        i++;
+
+    }
+
+
+    fgets(buff, 200, fp);
+    }
+    sprintf(connections + strlen(connections), ".");
+
+    //Get the position
+    char position[256];
+    int spaces = 0;
+    int j = 0;
+    while(spaces < 2){
+            if(buff[j] == ' '){
+                spaces++;
+            }
+            j++;
+        }
+        int k = 0;
+        do{
+            position[k] = buff[j];
+            j++;
+            k++;
+        } while(buff[j] != '\n');
+    position[k] = '\0';
+
+    printf("position: %s\n", position);
+
+
+    fclose(fp);
+    if(!strcmp("START_ROOM", position)){
+        printf("Start\n");
+    }
+    while(1){
+    if(strstr(connections, userInterface(curRoom, connections))){
+        printf("found it!\n");
+
+    }
+    else printf("Not a thing");
+    }
+
+
+
+
     return 0;
 }
+char *userInterface(char *curRoom, char *connections){
+    printf("CURRENT LOCATION: %s\n", curRoom);
+    printf("POSSIBLE CONNECTIONS: %s\n", connections);
+    printf("WHERE TO?>");
 
-void createFiles(){
+    char location [256];
+    fgets(location, 256, stdin);
+    location[strcspn(location, "\n")] = 0;  //Gets rid of newline at the end
+
+    return location;
+
+}
+
+
+char *createFiles(){
     srand(time(NULL));
 
     //***Make directory***
@@ -78,6 +176,8 @@ void createFiles(){
 
         }
 
+
+        return names[start];
 
 
 
