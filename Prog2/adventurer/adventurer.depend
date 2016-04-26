@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1461637741 source:/home/will/Documents/OperatingSystems/Prog2/adventurer/main.c
+1461644948 source:/home/will/Documents/OperatingSystems/Prog2/adventurer/main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<sys/types.h>
 	<sys/stat.h>
+	<fcntl.h>
 	<unistd.h>
 
