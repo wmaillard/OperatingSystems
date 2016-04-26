@@ -12,6 +12,7 @@ void makeRoom (char dirName[80], int theRooms[7], int section, int name);
 char *userInterface(char *curRoom, char *connections);
 char *moveLocation(char *curRoom);
 char *getLastWord(char *buff);
+char *getDirectory();
 
 int main()
 {
@@ -19,16 +20,32 @@ int main()
     int count = 0;
 
     char *curRoom = createFiles();
-    char order[1028]; //is this enough? Should I write to a file?
+    
+    char order[256];
+    sprintf(order, "%s/tempPathFile", getDirectory());
 
+    FILE *fp;
+    fp = fopen(order, "w+");
 
     while(curRoom[0] != '!'){
-    sprintf(order + strlen(order), "\n%s", curRoom);
-    count++;
-    curRoom = moveLocation(curRoom);
+        fprintf(fp, "%s\n", curRoom);
+        count++;
+        curRoom = moveLocation(curRoom);
     }
+    fclose(order);
 
-    printf("\nYOU HAVE FOUND THE END ROOM.\nCONGRATULATIONS!\nYOU TOOK %i STEPS. YOUR PATH TO VICTORY WAS:\n%s", count, order);
+    printf("\nYOU HAVE FOUND THE END ROOM.\nCONGRATULATIONS!\nYOU TOOK %i STEPS. YOUR PATH TO VICTORY WAS:\n", count);
+    
+    int character;                                      //Print out the order
+    fp = fopen(order, "r");
+    if (fp) {
+        character = getc(fp);
+        while (character != EOF){
+            putchar(character);
+            character = getc(fp);
+        }
+        fclose(fp);
+    }
     return 0;
 }
 
@@ -38,15 +55,13 @@ char *moveLocation(char *curRoom){
     strcpy(dirName, "maillarw.rooms.");
     sprintf(dirName + strlen(dirName), "%ld/%s", (long) getpid(), curRoom);
 
-
     char buff[200];
     char connections[256];
-
 
     FILE *fp = fopen(dirName, "r");
     fgets(buff, 200, fp);
 
-    int i = 0;  //All this just to get the connecting rooms, I miss javascript
+    int i = 0;                                       //Get the connecting rooms
     while(buff[5] != 'T'){
 
     if(buff[0] == 'C'){
@@ -68,14 +83,14 @@ char *moveLocation(char *curRoom){
 
     fclose(fp);
 
-    if(!strcmp("END_ROOM", position)){
+    if(!strcmp("END_ROOM", position)){              //Check if position is the end
         static char theEnd[256];
         sprintf(theEnd + strlen(theEnd), "!%s", curRoom); //need this or just return !?
 
         return theEnd;
     }
     
-    int found = 0;
+    int found = 0;                                  //Verify user's choice
     while(!found){
         static char *location = userInterface(curRoom, connections);
         
@@ -188,14 +203,18 @@ char *createFiles(){
 
 
 }
+char *getDirectory(){
+    static char dirName[256];
+    strcpy(dirName, "maillarw.rooms.");
+    sprintf(dirName + strlen(dirName), "%ld", (long) getpid());
+    return dirName;
+}
+
 
 void makeRoom (char dirName[80], int theRooms[7], int section, int name){
 
     char *names[10] = {"Dungeon", "Garden", "Ball_Room", "Chamber", "Secret_Passage", "Library", "Dining_Room",
                         "Kitchen", "Parlour", "Games_Room"};
-
-    printf("The name: %s\n", names[name]);
-    printf("The directory: %s\n", dirName);
 
     char newFile[200];
     sprintf(newFile, "%s/%s", dirName, names[name]);
