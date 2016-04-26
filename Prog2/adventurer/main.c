@@ -46,7 +46,9 @@ int main()
         }
         fclose(fp);
     }
-    return 0;
+    
+    remove(order);
+    exit(0);
 }
 
 
@@ -92,7 +94,19 @@ char *moveLocation(char *curRoom){
     
     int found = 0;                                  //Verify user's choice
     while(!found){
-        static char *location = userInterface(curRoom, connections);
+        static char location[256];
+        strcpy(location, userInterface(curRoom, connections));
+        
+       /* printf("CURRENT LOCATION: %s\n", curRoom);
+        printf("POSSIBLE CONNECTIONS: %s\n", connections);
+        printf("WHERE TO?>");
+        
+        static char location [256];
+        fgets(location, 256, stdin);
+        location[strcspn(location, "\n")] = 0;*/
+        
+        
+        
         
         if(strstr(connections, location) != NULL){
             return location;
@@ -123,7 +137,7 @@ char *getLastWord(char *buff){
 }
 
 char *userInterface(char *curRoom, char *connections){
-    printf("CURRENT LOCATION: %s\n", curRoom);
+    printf("\nCURRENT LOCATION: %s\n", curRoom);
     printf("POSSIBLE CONNECTIONS: %s\n", connections);
     printf("WHERE TO?>");
 
