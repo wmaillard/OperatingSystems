@@ -32,7 +32,7 @@ int main()
         count++;
         curRoom = moveLocation(curRoom);
     }
-    fclose(order);
+    fclose(fp);
 
     printf("\nYOU HAVE FOUND THE END ROOM.\nCONGRATULATIONS!\nYOU TOOK %i STEPS. YOUR PATH TO VICTORY WAS:\n", count);
     
