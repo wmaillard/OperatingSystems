@@ -11,6 +11,7 @@ void sayCurDir(); //for debugging
 void makeRoom (char dirName[80], int theRooms[7], int section, int name);
 char *userInterface(char *curRoom, char *connections);
 char *moveLocation(char *curRoom);
+char *getLastWord(char *buff);
 
 int main()
 {
@@ -27,9 +28,7 @@ int main()
     curRoom = moveLocation(curRoom);
     }
 
-
-    printf("Order\n%s\nNum Time: %i", order, count);
-    printf("Yaaas\n");
+    printf("\nYOU HAVE FOUND THE END ROOM.\nCONGRATULATIONS!\nYOU TOOK %i STEPS. YOUR PATH TO VICTORY WAS:\n%s", count, order);
     return 0;
 }
 
@@ -49,40 +48,47 @@ char *moveLocation(char *curRoom){
 
     int i = 0;  //All this just to get the connecting rooms, I miss javascript
     while(buff[5] != 'T'){
-    char connection[200];
+
     if(buff[0] == 'C'){
-        int spaces = 0;
-        int j = 0;
-        while(spaces < 2){
-            if(buff[j] == ' '){
-                spaces++;
-            }
-            j++;
-        }
-        int k = 0;
-        do{
-            connection[k] = buff[j];
-            j++;
-            k++;
-        } while(buff[j] != '\n');
-        connection[k] = '\0';
+        char *connection = getLastWord(buff);
         if(i <= 1){
             strcpy(connections, connection);
         }
-        else
+        else{
             sprintf(connections + strlen(connections), ", %s", connection);
-
+        }
         i++;
-
     }
-
-
     fgets(buff, 200, fp);
     }
     sprintf(connections + strlen(connections), ".");
 
     //Get the position
-    char position[256];
+    char *position = getLastWord(buff);
+
+    fclose(fp);
+
+    if(!strcmp("END_ROOM", position)){
+        static char theEnd[256];
+        sprintf(theEnd + strlen(theEnd), "!%s", curRoom); //need this or just return !?
+
+        return theEnd;
+    }
+    
+    int found = 0;
+    while(!found){
+        static char *location = userInterface(curRoom, connections);
+        
+        if(strstr(connections, location) != NULL){
+            return location;
+        }
+        else printf("\nHUH? I DON'T UNDERSTAND THAT ROOM. TRY AGAIN.\n");
+    }
+
+}
+
+char *getLastWord(char *buff){
+    static char theWord[256];
     int spaces = 0;
     int j = 0;
     while(spaces < 2){
@@ -93,49 +99,24 @@ char *moveLocation(char *curRoom){
         }
         int k = 0;
         do{
-            position[k] = buff[j];
+            theWord[k] = buff[j];
             j++;
             k++;
         } while(buff[j] != '\n');
-    position[k] = '\0';
+    theWord[k] = '\0';
+    return theWord;
+}
 
-
-    printf("position: %s\n", position);
-
-    fclose(fp);
-
-    if(!strcmp("END_ROOM", position)){
-        static char theEnd[256];
-        sprintf(theEnd + strlen(theEnd), "!%s", curRoom);
-
-        return theEnd;
-    }
-    while(1){
+char *userInterface(char *curRoom, char *connections){
     printf("CURRENT LOCATION: %s\n", curRoom);
     printf("POSSIBLE CONNECTIONS: %s\n", connections);
     printf("WHERE TO?>");
 
     static char location [256];
     fgets(location, 256, stdin);
-       // printf("Something: %s\n", location);
-    location[strcspn(location, "\n")] = 0;  //Gets rid of newline at the end
-    printf("Something: %s\n", location);
-    printf("Hey: %s", location);
-    if(strstr(connections, location) != NULL){
-        printf("found it!\n");
-        return location;
-
-    }
-    else printf("Not a thing: %s", location);
-    }
-
-
-
-
-}
-
-char *userInterface(char *curRoom, char *connections){
-
+    location[strcspn(location, "\n")] = 0;
+    
+    return location;
 
 }
 
