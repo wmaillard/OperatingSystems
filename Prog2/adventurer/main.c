@@ -10,13 +10,31 @@ char *createFiles();
 void sayCurDir(); //for debugging
 void makeRoom (char dirName[80], int theRooms[7], int section, int name);
 char *userInterface(char *curRoom, char *connections);
+char *moveLocation(char *curRoom);
 
 int main()
 {
     printf("Hello world!\n");
+    int count = 0;
 
     char *curRoom = createFiles();
+    char order[1028]; //is this enough? Should I write to a file?
 
+
+    while(curRoom[0] != '!'){
+    sprintf(order + strlen(order), "\n%s", curRoom);
+    count++;
+    curRoom = moveLocation(curRoom);
+    }
+
+
+    printf("Order\n%s\nNum Time: %i", order, count);
+    printf("Yaaas\n");
+    return 0;
+}
+
+
+char *moveLocation(char *curRoom){
     char dirName[80];
     strcpy(dirName, "maillarw.rooms.");
     sprintf(dirName + strlen(dirName), "%ld/%s", (long) getpid(), curRoom);
@@ -81,36 +99,43 @@ int main()
         } while(buff[j] != '\n');
     position[k] = '\0';
 
+
     printf("position: %s\n", position);
 
-
     fclose(fp);
-    if(!strcmp("START_ROOM", position)){
-        printf("Start\n");
+
+    if(!strcmp("END_ROOM", position)){
+        static char theEnd[256];
+        sprintf(theEnd + strlen(theEnd), "!%s", curRoom);
+
+        return theEnd;
     }
     while(1){
-    if(strstr(connections, userInterface(curRoom, connections))){
-        printf("found it!\n");
-
-    }
-    else printf("Not a thing");
-    }
-
-
-
-
-    return 0;
-}
-char *userInterface(char *curRoom, char *connections){
     printf("CURRENT LOCATION: %s\n", curRoom);
     printf("POSSIBLE CONNECTIONS: %s\n", connections);
     printf("WHERE TO?>");
 
-    char location [256];
+    static char location [256];
     fgets(location, 256, stdin);
+       // printf("Something: %s\n", location);
     location[strcspn(location, "\n")] = 0;  //Gets rid of newline at the end
+    printf("Something: %s\n", location);
+    printf("Hey: %s", location);
+    if(strstr(connections, location) != NULL){
+        printf("found it!\n");
+        return location;
 
-    return location;
+    }
+    else printf("Not a thing: %s", location);
+    }
+
+
+
+
+}
+
+char *userInterface(char *curRoom, char *connections){
+
 
 }
 
