@@ -48,6 +48,8 @@ void execute(char arguments[512][2048], int numArgs){
     int redirectBool = 0; //Set if < or >
     int allSymbols = 0; //0 if all symbols have been taken care of
     int fd, fd2;   //file descriptors for input/output redirection
+	int wd = 0;		//done changing write and read for background process
+	int rd = 0;
     
     spawnpid = fork();
     switch (spawnpid)
@@ -71,12 +73,17 @@ void execute(char arguments[512][2048], int numArgs){
            
             
             while(allSymbols == 1){ 
-
-                if(strcmp(arguments[locationSymbol], "<") == 0){            //Changes stdin to the correct file
-                    fd = open(arguments[locationSymbol + 1], O_RDONLY);
+				//printf("here0, %s\n", arguments[numArgs -1]);
+                if(strcmp(arguments[locationSymbol], "<") == 0 || (strcmp(arguments[numArgs - 1], "&") == 0 && rd == 0) ){            //Changes stdin to the correct file
+				//	printf("here1\n");
+					if(strcmp(arguments[numArgs - 1], "&") == 0)
+						fd = open("/dev/null", O_RDONLY);
+					else
+                    	fd = open(arguments[locationSymbol + 1], O_RDONLY);
+						
                     if (fd == -1)
                     {
-                        perror("Error opening file");
+                        perror("Error opening file for reading");
                         exit(1);    //Error opening file, how should I handle this?
                     }
                     fd2 = dup2(fd, 0);
@@ -86,16 +93,20 @@ void execute(char arguments[512][2048], int numArgs){
                         exit(2);
                     }
                     locationSymbol += 2;
-                    if(locationSymbol > (numArgs - 2) && strcmp(arguments[locationSymbol], "&") != 0){
+                    if(locationSymbol > (numArgs - 2) && strcmp(arguments[numArgs - 1], "&") != 0){
                         allSymbols = 0;             //If there aren't any more symbols, then we're done
                     }
+					rd = 1;
 				}
-                else if(strcmp(arguments[locationSymbol], ">") == 0){            //Changes stdout to the correct file
-                    
-					fd = open(arguments[locationSymbol + 1], O_WRONLY, O_TRUNC, O_CREAT);
+                else if(strcmp(arguments[locationSymbol], ">") == 0 || (strcmp(arguments[numArgs - 1], "&") == 0 && wd == 0)){            //Changes stdout to the correct file
+					//printf("here2\n");
+                    if(strcmp(arguments[numArgs - 1], "&") == 0)
+						fd = open("/dev/null", O_WRONLY);
+					else
+						fd = open(arguments[locationSymbol + 1], O_WRONLY, O_TRUNC, O_CREAT);
                     if (fd == -1)
                     {
-                        perror("Error opening file");
+                        perror("Error opening file for writing");
                         exit(1);    //Error opening file, how should I handle this?
                     }
                     fd2 = dup2(fd, 1);
@@ -106,15 +117,16 @@ void execute(char arguments[512][2048], int numArgs){
                     }
                     
                     locationSymbol += 2;
-                    if(locationSymbol > (numArgs - 2) && strcmp(arguments[locationSymbol], "&") != 0){
+                    if(locationSymbol > (numArgs - 2) && strcmp(arguments[numArgs - 1], "&") != 0){
                         allSymbols = 0;             //If there aren't any more symbols, then we're done
                     }
+					
+					wd = 1;
                 }
 				else allSymbols = 0;
             }    
-             
+             //printf("here4\n");
             err = execvp(firstArgs[0], firstArgs);
-			printf("it: %s \n", arguments[numArgs - 1]);
             if(err == -1){
                 int errsv = errno;
                 printf("Error executing %s: %s\n", arguments[0], strerror(errsv));
@@ -132,9 +144,9 @@ void execute(char arguments[512][2048], int numArgs){
 				}
 				if (WIFEXITED(status))
 				{
-				    printf("Process %i exited correctly\n", exitpid);
+				    /*printf("Process %i exited correctly\n", exitpid);
 					int exitstatus = WEXITSTATUS(status);
-				    printf("Exit status was %d\n", exitstatus);
+				    printf("Exit status was %d\n", exitstatus);*/
 				}
 				else{
 					printf("Child terminated by a signal\n");
