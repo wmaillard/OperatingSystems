@@ -33,11 +33,6 @@ int main()
     else{
         execute(arguments, numArguments);
     }
-    
- /*   for(i; i < numArguments; i++){
-        printf("%s: %i\n", arguments[i], i);
-        
-    }*/
     }
 }
 
@@ -81,7 +76,7 @@ void execute(char arguments[512][2048], int numArgs){
                     fd = open(arguments[locationSymbol + 1], O_RDONLY);
                     if (fd == -1)
                     {
-                        perror("open");
+                        perror("Error opening file");
                         exit(1);    //Error opening file, how should I handle this?
                     }
                     fd2 = dup2(fd, 0);
@@ -100,7 +95,7 @@ void execute(char arguments[512][2048], int numArgs){
 					fd = open(arguments[locationSymbol + 1], O_WRONLY, O_TRUNC, O_CREAT);
                     if (fd == -1)
                     {
-                        perror("open");
+                        perror("Error opening file");
                         exit(1);    //Error opening file, how should I handle this?
                     }
                     fd2 = dup2(fd, 1);
@@ -115,15 +110,11 @@ void execute(char arguments[512][2048], int numArgs){
                         allSymbols = 0;             //If there aren't any more symbols, then we're done
                     }
                 }
-                else if(strcmp(arguments[locationSymbol], "&") == 0){
-                  	background = 1;
-                }
 				else allSymbols = 0;
-            }
-                    
-                    
+            }    
              
             err = execvp(firstArgs[0], firstArgs);
+			printf("it: %s \n", arguments[numArgs - 1]);
             if(err == -1){
                 int errsv = errno;
                 printf("Error executing %s: %s\n", arguments[0], strerror(errsv));
@@ -132,26 +123,44 @@ void execute(char arguments[512][2048], int numArgs){
             break;
         default:
            // printf("I am the parent!");
-            exitpid = waitpid(spawnpid, &status, 0);
-            if (exitpid == -1)
-            {
-                perror("wait failed");
-                exit(1);
-            }
-            if (WIFEXITED(status))
-            {
-               // printf("The process exited normally\n");
-                int exitstatus = WEXITSTATUS(status);
-               // printf("exit status was %d\n", exitstatus);
-            }
-            else
-                // printf("Child terminated by a signal\n");
+			if(strcmp(arguments[numArgs - 1], "&") != 0 && numArgs > 0){
+				exitpid = waitpid(spawnpid, &status, 0);
+				if (exitpid == -1)
+				{
+					perror("wait failed");
+					exit(1);
+				}
+				if (WIFEXITED(status))
+				{
+				    printf("Process %i exited correctly\n", exitpid);
+					int exitstatus = WEXITSTATUS(status);
+				    printf("Exit status was %d\n", exitstatus);
+				}
+				else{
+					printf("Child terminated by a signal\n");
+				}
+			}
+			else if(strcmp(arguments[numArgs-1], "&") == 0){
+				printf("Process id: %i is running in the background\n", spawnpid);
+				fflush(stdout);
+			}
             break;
-    }                
+    	}                
 }
 
 
 void prompt(){
+	int status = 0;
+	pid_t exitpid;
+	exitpid = waitpid(-1, &status, WNOHANG);
+	if (exitpid > 0)
+	{
+		if(WIFEXITED(status)){
+			printf("Process %i exited correctly\n", exitpid);
+			int exitstatus = WEXITSTATUS(status);
+			printf("Exit status was %d\n", exitstatus);
+		}
+	}
     printf(":");        //print the prompt and flush
     fflush(stdout);
 }
