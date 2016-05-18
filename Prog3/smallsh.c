@@ -21,7 +21,7 @@ static int sigNo = 0;
 pid_t backgroundPids[50];
 int numBackground = 0;
 int debug = 0;
-
+void cd(char arguments[512][2048], int numArgs);
 
 
 int main()
@@ -44,9 +44,10 @@ int main()
 		int i = 0;
 
 		if(strcmp(arguments[0], "exit") == 0){
-			quit();
+			quit(arguments, numArguments);
 		}
 		else if(strcmp(arguments[0], "cd") == 0){
+			cd(arguments, numArguments);
 		}
 		else if(strcmp(arguments[0], "status") == 0){
 		}
@@ -162,7 +163,7 @@ void execute(char arguments[512][2048], int numArgs){
             if(err == -1){
                 int errsv = errno;
 				int i;
-                printf("\nError executing %s: %s\n", arguments[0], strerror(errsv));
+                printf("Error executing %s: %s\n", arguments[0], strerror(errsv));
 				fflush(stdout);
 				exit(2);         //WHAT EXIT VALUE HERE
             }
@@ -180,9 +181,9 @@ void execute(char arguments[512][2048], int numArgs){
 					exit(1);
 				}
 				if(WIFSIGNALED(status)){					//Print signal interrupt of pid
-					int signal = WTERMSIG(status);
-					printf("Terminated by signal %d\n", signal);
-					fflush(stdout);
+					//int signal = WTERMSIG(status);
+					//printf("Terminated by signal %d\n", signal);
+					//fflush(stdout);
 				}
 			}
 			else if(strcmp(arguments[numArgs-1], "&") == 0){
@@ -252,6 +253,30 @@ void quit(){
 	}
 	exit(0);
 }
+void cd(char arguments[512][2048], int numArgs){
+	if(numArgs > 3){
+		printf("You have used too many arguments with cd\n");
+		fflush(stdout);
+		return;
+	}
+	else if(numArgs == 1){
+		if(chdir(getenv("HOME")) == -1){
+			perror("cd failed");
+		}
+	}
+	else{
+		if(chdir(arguments[1]) == -1){
+			perror("cd failed");
+		}
+	
+	}
+	return;
+}
+		
+		
+		
+
+	
 	
 	
     
