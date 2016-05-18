@@ -3,7 +3,9 @@ makefile
 p3testscript
 smallsh
 smallsh.c
-testdir18472
-testdir18620
-testdir18918
-testdir19685
+test
+testdir21512
+testdir22406
+testdir22492
+testdir22592
+testdir22691

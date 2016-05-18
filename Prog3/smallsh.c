@@ -16,12 +16,11 @@ Program 4
 void prompt();
 int getCommand(char arguments[512][2048]);
 void execute(char arguments[512][2048], int numArgs);
-void termHandler(int signo);
 void quit();
 static int sigNo = 0;
-//int maxBackground = 50;
 pid_t backgroundPids[50];
 int numBackground = 0;
+int debug = 0;
 
 
 
@@ -39,7 +38,7 @@ int main()
 	
     char arguments[512][2048];
     while(numBackground < 50){
-		printf("hey1\n");
+		if(debug == 1) printf("hey1\n");
 		prompt();
 		int numArguments = getCommand(arguments);
 		int i = 0;
@@ -52,9 +51,9 @@ int main()
 		else if(strcmp(arguments[0], "status") == 0){
 		}
 		else{
-			printf("hey2\n");
+			if(debug == 1) printf("hey2\n");
 			execute(arguments, numArguments);
-			printf("hey3\n");
+			if(debug == 1) printf("hey3\n");
 		}
     }
 }
@@ -77,7 +76,7 @@ void execute(char arguments[512][2048], int numArgs){
 	struct sigaction termAct;
 	
 
-    printf("hey4\n");
+    if(debug == 1) printf("hey4\n");
     spawnpid = fork();
     switch (spawnpid)
     {
@@ -86,7 +85,7 @@ void execute(char arguments[512][2048], int numArgs){
             exit(1);
             break;
         case 0:
-            //printf("I am the child!\n");
+            if(debug == 1) printf("I am the child!\n");
 			termAct.sa_handler = SIG_DFL;
 			termAct.sa_flags = 0;
 			sigfillset(&(termAct.sa_mask));
@@ -97,7 +96,7 @@ void execute(char arguments[512][2048], int numArgs){
             for(i = 0; i < numArgs; i++){
                 if(strcmp(arguments[i], ">") == 0 || strcmp(arguments[i], "<") == 0 || strcmp(arguments[i], "&") == 0){
                     locationSymbol = i;
-                    i++;
+                    //i++;
                     allSymbols = 1;
                     break;
                 }
@@ -133,17 +132,16 @@ void execute(char arguments[512][2048], int numArgs){
 					rd = 1;
 				}
                 else if(strcmp(arguments[locationSymbol], ">") == 0 || (strcmp(arguments[numArgs - 1], "&") == 0 && wd == 0)){            //Changes stdout to the correct file
-					//printf("here2\n");
                     if(strcmp(arguments[numArgs - 1], "&") == 0)
 						fd = open("/dev/null", O_WRONLY);
 					else
-						fd = open(arguments[locationSymbol + 1], O_WRONLY, O_TRUNC, O_CREAT);
+						fd = open(arguments[locationSymbol + 1], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);  //Flags from here: http://linux.die.net/man/3/open
                     if (fd == -1)
                     {
                         perror("Error opening file for writing");
                         exit(1);    //Error opening file, how should I handle this?
                     }
-                    //TURN ON fd2 = dup2(fd, 1);
+                    fd2 = dup2(fd, 1);
                     if (fd2 == -1)
                     {
                         perror("dup2"); //Error redirecting, how should I handle this?
@@ -163,12 +161,15 @@ void execute(char arguments[512][2048], int numArgs){
             err = execvp(firstArgs[0], firstArgs);
             if(err == -1){
                 int errsv = errno;
-                printf("Error executing %s: %s\n", arguments[0], strerror(errsv));
+				int i;
+                printf("\nError executing %s: %s\n", arguments[0], strerror(errsv));
+				fflush(stdout);
+				exit(2);         //WHAT EXIT VALUE HERE
             }
-        	fflush(stdout);
+        	
             break;
         default:
-           // printf("I am the parent!");
+            if(debug == 1) printf("I am the parent!\n");
 
 			
 			if(strcmp(arguments[numArgs - 1], "&") != 0 && numArgs > 0){
@@ -181,14 +182,15 @@ void execute(char arguments[512][2048], int numArgs){
 				if(WIFSIGNALED(status)){					//Print signal interrupt of pid
 					int signal = WTERMSIG(status);
 					printf("Terminated by signal %d\n", signal);
+					fflush(stdout);
 				}
 			}
 			else if(strcmp(arguments[numArgs-1], "&") == 0){
 				printf("Background pid is %i\n", spawnpid);
+				fflush(stdout);
 				backgroundPids[numBackground];
 				numBackground++;
 			}
-			fflush(stdout);
             break;
     	}
 	fflush(stdout);
@@ -205,10 +207,12 @@ void prompt(){
 		if(WIFEXITED(status)){							//Print successful exit of background pid
 			int exitstatus = WEXITSTATUS(status);
 			printf("Background pid %i is done: exit value %d\n", exitpid, exitstatus);
+			fflush(stdout);
 		}
 		else if(WIFSIGNALED(status)){					//Print signal interrupt of background pid
 			int signal = WTERMSIG(status);
 			printf("Background pid %i was terminated by signal %d\n", exitpid, signal);
+			fflush(stdout);
 		}
 	}
     printf(":");        //print the prompt and flush
