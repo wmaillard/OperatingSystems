@@ -271,7 +271,7 @@ void quit(){				//Quit: kill all background process and get out of the main loop
 	for(i = 0; i < numBackground; i++){
 		
 		if(backgroundPids[i] != -1){
-			kill(backgroundPids[i], SIGKILL);
+			kill(backgroundPids[i], SIGTERM);
 		}
 	}
 	keepRunning = 0;
