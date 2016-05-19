@@ -1,7 +1,7 @@
 /*William Maillard
 CS 344
-5/14/16
-Program 4
+5/18/16
+Program 3
 */
 
 #include <stdio.h>
@@ -14,24 +14,22 @@ Program 4
 #include <fcntl.h>
 #include <unistd.h>
 
-void prompt();
-int getCommand(char arguments[512][2048]);
-void execute(char arguments[512][2048], int numArgs);
+void prompt();		//The main prompt
+int getCommand(char arguments[512][2048]);		//The command given by the user
+void execute(char arguments[512][2048], int numArgs);		
 void quit();
-static int sigNo = 0;
-pid_t backgroundPids[100];
-int numBackground = 0;
-int debug = 0;
+void status();
 void cd(char arguments[512][2048], int numArgs);
+pid_t backgroundPids[100];				//Track what is running in the background(limited to 100 for now)
+int numBackground = 0;					//How many processes have been run in the background
 int termBySig = -1; //Was the last process terminated by a signal?
 int exitOrSig = 0; //Number of signal or exit
-void status();
 int keepRunning = 1; //keep prompting
 
 int main()
 {
 
-	struct sigaction termAct;
+	struct sigaction termAct;						//Set up parent to ignore SIGINT
 	termAct.sa_handler = SIG_IGN;
 	termAct.sa_flags = 0;
 	sigfillset(&(termAct.sa_mask));
@@ -41,13 +39,12 @@ int main()
 	
 	
     char arguments[512][2048];
-    while(keepRunning == 1){
-		if(debug == 1) printf("hey1\n");
+    while(keepRunning == 1){						//Keep prompting until global is changed by exit()
 		prompt();
 		int numArguments = getCommand(arguments);
 		int i = 0;
 
-		if(strcmp(arguments[0], "exit") == 0){
+		if(strcmp(arguments[0], "exit") == 0){		//Run one of the three custom commands
 			quit(arguments, numArguments);
 		}
 		else if(strcmp(arguments[0], "cd") == 0){
@@ -57,16 +54,14 @@ int main()
 			status();
 		}
 		else{
-			if(debug == 1) printf("hey2\n");
-			execute(arguments, numArguments);
-			if(debug == 1) printf("hey3\n");
+			execute(arguments, numArguments);		//Try running any other command
 		}
     }
 	return;
 }
 
 
-void execute(char arguments[512][2048], int numArgs){
+void execute(char arguments[512][2048], int numArgs){  //Execute normal console commands
     pid_t spawnpid = -5;
     pid_t exitpid;
     int status;
@@ -92,15 +87,16 @@ void execute(char arguments[512][2048], int numArgs){
 			   // perror("Hull Breach!");
 				exit(1);
 				break;
-			case 0:
-				if(debug == 1) printf("I am the child!\n");
+			case 0:								//Start of the child process
+				
+												//Allow default action for sigint
 				termAct.sa_handler = SIG_DFL;
 				termAct.sa_flags = 0;
 				sigfillset(&(termAct.sa_mask));
 				sigaction(SIGINT, &termAct, NULL);
 
-
-
+			
+													//Find the symbols and separate them from the first arguments
 				for(i = 0; i < numArgs; i++){
 					if(strcmp(arguments[i], ">") == 0 || strcmp(arguments[i], "<") == 0 || strcmp(arguments[i], "&") == 0){
 						locationSymbol = i;
@@ -112,7 +108,7 @@ void execute(char arguments[512][2048], int numArgs){
 				firstArgs[i] = NULL;                 //End the first args in NULL for execvp
 
 
-				while(allSymbols == 1){ 
+				while(allSymbols == 1){ 			//Based on what <,>, & are includes, redirect/background processes appropriately
 					if(strcmp(arguments[locationSymbol], "<") == 0 || (strcmp(arguments[numArgs - 1], "&") == 0 && rd == 0) ){            //Changes stdin to the correct file
 						if(strcmp(arguments[numArgs - 1], "&") == 0)
 							fd = open("/dev/null", O_RDONLY);
@@ -168,40 +164,38 @@ void execute(char arguments[512][2048], int numArgs){
 					}
 					else allSymbols = 0;
 				}    
-				 //printf("here4\n");
-				err = execvp(firstArgs[0], firstArgs);
+				
+				
+				err = execvp(firstArgs[0], firstArgs);					//Execute the command
 				if(err == -1){
 					int errsv = errno;
 					int i;
 					printf("%s: %s\n", arguments[0], strerror(errsv));
 					fflush(stdout);
-					exit(2);         //WHAT EXIT VALUE HERE
+					exit(2);         
 				}
 
 				break;
-			default:
-				if(debug == 1) printf("I am the parent!\n");
-
-
+			default:													//Start of the parent process		
 				if(strcmp(arguments[numArgs - 1], "&") != 0 && numArgs > 0){
-					exitpid = waitpid(spawnpid, &status, 0);
+					exitpid = waitpid(spawnpid, &status, 0);			//Wait for the child if & was not at the end
 					if (exitpid == -1)
 					{
 						perror("wait failed");
 						exit(1);
 					}
-					if(WIFSIGNALED(status)){
+					if(WIFSIGNALED(status)){							//Terminated by a signal
 						exitOrSig = WTERMSIG(status);
 						printf("Terminated by signal %d\n", exitOrSig);
 						fflush(stdout);
-						termBySig = 1;					//Terminated by a signal
+						termBySig = 1;									
 					}
-					else{
+					else{												//Ended normally
 						exitOrSig = WEXITSTATUS(status);
-						termBySig = 0;					//Ended normally
+						termBySig = 0;									
 					}
 				}
-				else if(strcmp(arguments[numArgs-1], "&") == 0){
+				else if(strcmp(arguments[numArgs-1], "&") == 0){		//If in the background, let user know and add to the list
 					printf("Background pid is %i\n", spawnpid);
 					fflush(stdout);
 					backgroundPids[numBackground] = spawnpid;
@@ -248,7 +242,7 @@ void prompt(){											//Check if background process have exited and print the
 
 
 
-int getCommand(char arguments[512][2048]){
+int getCommand(char arguments[512][2048]){			//Get the user's input
     size_t buffsize = 2048;
     char *input;
     int numArgs = 0;
@@ -272,7 +266,7 @@ int getCommand(char arguments[512][2048]){
     return numArgs;
                                 //return number of arguments
 }
-void quit(){
+void quit(){				//Quit: kill all background process and get out of the main loop
 	int i;
 	for(i = 0; i < numBackground; i++){
 		
@@ -283,26 +277,26 @@ void quit(){
 	keepRunning = 0;
 	return;
 }
-void cd(char arguments[512][2048], int numArgs){
-	if(numArgs > 3){
+void cd(char arguments[512][2048], int numArgs){			//Navigation function
+	if(numArgs > 3){										//Too many args
 		printf("You have used too many arguments with cd\n");
 		fflush(stdout);
 		return;
 	}
-	else if(numArgs == 1){
+	else if(numArgs == 1){									// No args to cd, default to HOME
 		if(chdir(getenv("HOME")) == -1){
 			perror("cd failed");
 		}
 	}
-	else{
+	else{													//Normal behavior
 		if(chdir(arguments[1]) == -1){
 			perror("cd failed");
 		}
 	
 	}
 	return;
-}
-void status(){
+}		
+void status(){												//Get the status of the last foreground process
 	if(termBySig == 0){
 		printf("Exit value %d\n", exitOrSig);
 		fflush(stdout);
