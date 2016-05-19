@@ -12,17 +12,21 @@ Program 4
 #include <errno.h>
 #include <string.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 void prompt();
 int getCommand(char arguments[512][2048]);
 void execute(char arguments[512][2048], int numArgs);
 void quit();
 static int sigNo = 0;
-pid_t backgroundPids[50];
+pid_t backgroundPids[100];
 int numBackground = 0;
 int debug = 0;
 void cd(char arguments[512][2048], int numArgs);
-
+int termBySig = -1; //Was the last process terminated by a signal?
+int exitOrSig = 0; //Number of signal or exit
+void status();
+int keepRunning = 1; //keep prompting
 
 int main()
 {
@@ -37,7 +41,7 @@ int main()
 	
 	
     char arguments[512][2048];
-    while(numBackground < 50){
+    while(keepRunning == 1){
 		if(debug == 1) printf("hey1\n");
 		prompt();
 		int numArguments = getCommand(arguments);
@@ -50,6 +54,7 @@ int main()
 			cd(arguments, numArguments);
 		}
 		else if(strcmp(arguments[0], "status") == 0){
+			status();
 		}
 		else{
 			if(debug == 1) printf("hey2\n");
@@ -57,6 +62,7 @@ int main()
 			if(debug == 1) printf("hey3\n");
 		}
     }
+	return;
 }
 
 
@@ -77,129 +83,139 @@ void execute(char arguments[512][2048], int numArgs){
 	struct sigaction termAct;
 	
 
-    if(debug == 1) printf("hey4\n");
-    spawnpid = fork();
-    switch (spawnpid)
-    {
-        case -1:
-           // perror("Hull Breach!");
-            exit(1);
-            break;
-        case 0:
-            if(debug == 1) printf("I am the child!\n");
-			termAct.sa_handler = SIG_DFL;
-			termAct.sa_flags = 0;
-			sigfillset(&(termAct.sa_mask));
-			sigaction(SIGINT, &termAct, NULL);
-			
-			
-			
-            for(i = 0; i < numArgs; i++){
-                if(strcmp(arguments[i], ">") == 0 || strcmp(arguments[i], "<") == 0 || strcmp(arguments[i], "&") == 0){
-                    locationSymbol = i;
-                    //i++;
-                    allSymbols = 1;
-                    break;
-                }
-                firstArgs[i] = &(arguments[i]);  //Add the first command to the firstArgs array
-            }
-            firstArgs[i] = NULL;                 //End the first args in NULL for execvp
-           
-            
-            while(allSymbols == 1){ 
-				//printf("here0, %s\n", arguments[numArgs -1]);
-                if(strcmp(arguments[locationSymbol], "<") == 0 || (strcmp(arguments[numArgs - 1], "&") == 0 && rd == 0) ){            //Changes stdin to the correct file
-				//	printf("here1\n");
-					if(strcmp(arguments[numArgs - 1], "&") == 0)
-						fd = open("/dev/null", O_RDONLY);
-					else
-                    	fd = open(arguments[locationSymbol + 1], O_RDONLY);
-						
-                    if (fd == -1)
-                    {
-                        perror("Error opening file for reading");
-                        exit(1);    //Error opening file, how should I handle this?
-                    }
-                    fd2 = dup2(fd, 0);
-                    if (fd2 == -1)
-                    {
-                        perror("dup2"); //Error redirecting, how should I handle this?
-                        exit(2);
-                    }
-                    locationSymbol += 2;
-                    if(locationSymbol > (numArgs - 2) && strcmp(arguments[numArgs - 1], "&") != 0){
-                        allSymbols = 0;             //If there aren't any more symbols, then we're done
-                    }
-					rd = 1;
-				}
-                else if(strcmp(arguments[locationSymbol], ">") == 0 || (strcmp(arguments[numArgs - 1], "&") == 0 && wd == 0)){            //Changes stdout to the correct file
-                    if(strcmp(arguments[numArgs - 1], "&") == 0)
-						fd = open("/dev/null", O_WRONLY);
-					else
-						fd = open(arguments[locationSymbol + 1], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);  //Flags from here: http://linux.die.net/man/3/open
-                    if (fd == -1)
-                    {
-                        perror("Error opening file for writing");
-                        exit(1);    //Error opening file, how should I handle this?
-                    }
-                    fd2 = dup2(fd, 1);
-                    if (fd2 == -1)
-                    {
-                        perror("dup2"); //Error redirecting, how should I handle this?
-                        exit(2);
-                    }
-                    
-                    locationSymbol += 2;
-                    if(locationSymbol > (numArgs - 2) && strcmp(arguments[numArgs - 1], "&") != 0){
-                        allSymbols = 0;             //If there aren't any more symbols, then we're done
-                    }
-					
-					wd = 1;
-                }
-				else allSymbols = 0;
-            }    
-             //printf("here4\n");
-            err = execvp(firstArgs[0], firstArgs);
-            if(err == -1){
-                int errsv = errno;
-				int i;
-                printf("Error executing %s: %s\n", arguments[0], strerror(errsv));
-				fflush(stdout);
-				exit(2);         //WHAT EXIT VALUE HERE
-            }
-        	
-            break;
-        default:
-            if(debug == 1) printf("I am the parent!\n");
+    if(numArgs > 0 && arguments[0][0] != '#'){
 
-			
-			if(strcmp(arguments[numArgs - 1], "&") != 0 && numArgs > 0){
-				exitpid = waitpid(spawnpid, &status, 0);
-				if (exitpid == -1)
-				{
-					perror("wait failed");
-					exit(1);
+		spawnpid = fork();
+		switch (spawnpid)
+		{
+			case -1:
+			   // perror("Hull Breach!");
+				exit(1);
+				break;
+			case 0:
+				if(debug == 1) printf("I am the child!\n");
+				termAct.sa_handler = SIG_DFL;
+				termAct.sa_flags = 0;
+				sigfillset(&(termAct.sa_mask));
+				sigaction(SIGINT, &termAct, NULL);
+
+
+
+				for(i = 0; i < numArgs; i++){
+					if(strcmp(arguments[i], ">") == 0 || strcmp(arguments[i], "<") == 0 || strcmp(arguments[i], "&") == 0){
+						locationSymbol = i;
+						allSymbols = 1;
+						break;
+					}
+					firstArgs[i] = &(arguments[i]);  //Add the first command to the firstArgs array
 				}
-				if(WIFSIGNALED(status)){					//Print signal interrupt of pid
-					//int signal = WTERMSIG(status);
-					//printf("Terminated by signal %d\n", signal);
-					//fflush(stdout);
+				firstArgs[i] = NULL;                 //End the first args in NULL for execvp
+
+
+				while(allSymbols == 1){ 
+					if(strcmp(arguments[locationSymbol], "<") == 0 || (strcmp(arguments[numArgs - 1], "&") == 0 && rd == 0) ){            //Changes stdin to the correct file
+						if(strcmp(arguments[numArgs - 1], "&") == 0)
+							fd = open("/dev/null", O_RDONLY);
+						else
+							fd = open(arguments[locationSymbol + 1], O_RDONLY);
+
+						if (fd == -1)
+						{
+							printf("Cannot open %s as input\n", arguments[locationSymbol + 1]);
+							fflush(stdout);
+							exit(1);    //Error opening file
+						}
+						fd2 = dup2(fd, 0);
+						if (fd2 == -1)
+						{
+							perror("dup2"); //Error redirecting, is this correct error number?
+							exit(2);
+						}
+						locationSymbol += 2;
+						if(locationSymbol > (numArgs - 2) && strcmp(arguments[numArgs - 1], "&") != 0){
+							allSymbols = 0;             //If there aren't any more symbols, then we're done
+						}
+						rd = 1;
+					}
+					else if(strcmp(arguments[locationSymbol], ">") == 0 || (strcmp(arguments[numArgs - 1], "&") == 0 && wd == 0)){            //Changes stdout to the correct file
+						if(strcmp(arguments[numArgs - 1], "&") == 0)
+							fd = open("/dev/null", O_WRONLY);
+						else
+							fd = open(arguments[locationSymbol + 1], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);  //Flags from here: http://linux.die.net/man/3/open
+						if (fd == -1)
+						{
+							printf("Cannot open %s for writing\n", arguments[locationSymbol + 1]);
+							fflush(stdout);
+							exit(1);    //Error opening file
+						}
+						
+						if(strcmp(arguments[numArgs - 1], "&") == 0){
+							dup2(fd, STDERR_FILENO);  //Redirect stderror for background processes
+						}
+						fd2 = dup2(fd, 1);
+						if (fd2 == -1)
+						{
+							perror("dup2"); //Error redirecting
+							exit(2);
+						}
+
+						locationSymbol += 2;
+						if(locationSymbol > (numArgs - 2) && strcmp(arguments[numArgs - 1], "&") != 0){
+							allSymbols = 0;             //If there aren't any more symbols, then we're done
+						}
+
+						wd = 1;
+					}
+					else allSymbols = 0;
+				}    
+				 //printf("here4\n");
+				err = execvp(firstArgs[0], firstArgs);
+				if(err == -1){
+					int errsv = errno;
+					int i;
+					printf("%s: %s\n", arguments[0], strerror(errsv));
+					fflush(stdout);
+					exit(2);         //WHAT EXIT VALUE HERE
 				}
+
+				break;
+			default:
+				if(debug == 1) printf("I am the parent!\n");
+
+
+				if(strcmp(arguments[numArgs - 1], "&") != 0 && numArgs > 0){
+					exitpid = waitpid(spawnpid, &status, 0);
+					if (exitpid == -1)
+					{
+						perror("wait failed");
+						exit(1);
+					}
+					if(WIFSIGNALED(status)){
+						exitOrSig = WTERMSIG(status);
+						printf("Terminated by signal %d\n", exitOrSig);
+						fflush(stdout);
+						termBySig = 1;					//Terminated by a signal
+					}
+					else{
+						exitOrSig = WEXITSTATUS(status);
+						termBySig = 0;					//Ended normally
+					}
+				}
+				else if(strcmp(arguments[numArgs-1], "&") == 0){
+					printf("Background pid is %i\n", spawnpid);
+					fflush(stdout);
+					backgroundPids[numBackground] = spawnpid;
+					numBackground++;
+				}
+				break;
 			}
-			else if(strcmp(arguments[numArgs-1], "&") == 0){
-				printf("Background pid is %i\n", spawnpid);
-				fflush(stdout);
-				backgroundPids[numBackground];
-				numBackground++;
-			}
-            break;
-    	}
-	fflush(stdout);
-	fflush(stdin);
+		fflush(stdout);
+		fflush(stdin);
+	}
 }
 
 
-void prompt(){
+void prompt(){											//Check if background process have exited and print the prompt
 	int status = 0;
 	pid_t exitpid;
 	exitpid = waitpid(-1, &status, WNOHANG);
@@ -215,6 +231,16 @@ void prompt(){
 			printf("Background pid %i was terminated by signal %d\n", exitpid, signal);
 			fflush(stdout);
 		}
+		
+		int i;
+		for(i = 0; i < numBackground; i++){
+			if(backgroundPids[i] == exitpid){
+				backgroundPids[i] = -1;
+				break;
+			}
+		}
+		
+		
 	}
     printf(":");        //print the prompt and flush
     fflush(stdout);
@@ -249,9 +275,13 @@ int getCommand(char arguments[512][2048]){
 void quit(){
 	int i;
 	for(i = 0; i < numBackground; i++){
-		kill(backgroundPids[i], SIGTERM);
+		
+		if(backgroundPids[i] != -1){
+			kill(backgroundPids[i], SIGKILL);
+		}
 	}
-	exit(0);
+	keepRunning = 0;
+	return;
 }
 void cd(char arguments[512][2048], int numArgs){
 	if(numArgs > 3){
@@ -272,7 +302,22 @@ void cd(char arguments[512][2048], int numArgs){
 	}
 	return;
 }
-		
+void status(){
+	if(termBySig == 0){
+		printf("Exit value %d\n", exitOrSig);
+		fflush(stdout);
+	}
+	else if(termBySig == 1){
+		printf("Terminated by signal %d\n", exitOrSig);
+		fflush(stdout);
+	}
+	else if(termBySig == -1){
+		printf("Nothing has been run in the foreground yet!\n");
+		fflush(stdout);
+		termBySig;
+	}
+	return;
+}
 		
 		
 
