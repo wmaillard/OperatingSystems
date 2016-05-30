@@ -21,14 +21,14 @@ def main():
 	
 	files = []
 
-	for i in range(1, 4):
+	for i in range(1, 4):							#Create three file names, if they already exist, append (copy)
 		fileName = "File" + str(i)
 		while(os.path.isfile(fileName + '.txt')):
 			fileName = fileName + '(copy)'
 		fileName = fileName + '.txt'
 		files.append(fileName)
 		
-	theLetters = []	
+	theLetters = []									#Create three random strings of lowercase letters
 	for j in range(3):
 		randomLetters = ""
 		for i in range(10):
@@ -36,7 +36,7 @@ def main():
 		theLetters.append(randomLetters)
 	
 	i = 0
-	for fileNames in files:
+	for fileNames in files:							#Open the three files, add the strings, and print the filenames and strings
 		with open(fileNames, 'wb') as newFile:
 			print 'Writing "' + theLetters[i] + '" plus a newline to file: ' + fileNames + "\n"
 			newFile.write(theLetters[i] + '\n')
@@ -44,7 +44,7 @@ def main():
 		newFile.close()
 		print 'Done\n'
 		
-	from random import randint
+	from random import randint						#Print two random integers and their product
 	one = randint(1, 42)
 	print 'Random integer one: ' + str(one) + '\n'
 	two = randint(1, 42)
@@ -52,23 +52,7 @@ def main():
 	theProduct = one * two
 	print 'The product of these integers is: ' + str(theProduct) + '\n'
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 
 if __name__ == '__main__':
 	main()
