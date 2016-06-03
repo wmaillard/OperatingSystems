@@ -75,11 +75,11 @@ main(int argc, char * argv[]){
 		else{	
 			int i = 0;
 			do{
-				newPort = rand() % 10000 + 20000 + numBackground; //20,000 - 30,000 + numBackground
+				newPort = i + 30000 + numBackground; //30,000 - 40,000 + numBackground
 				sprintf(sNewPort, "%i", newPort);
 				i++;
 				if(i > 10000){
-					fprintf(stderr, "Error: Tried to connect on 10,000 random ports, all failed\n");
+					fprintf(stderr, "Error: Tried to connect on ports 30,000 - 40,000 and all failed\n");
 					return 2;
 				}
 			}while((newServer = startUp(sNewPort)) == -1);  //Try 10,000 times
