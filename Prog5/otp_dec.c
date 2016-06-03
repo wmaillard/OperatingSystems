@@ -149,8 +149,8 @@ int sendMyFile(char* plainText, char* key, int connection){
 		char buffer[maxBuff];
 
 										//The idea in this while loop was borrowed from here: http://stackoverflow.com/questions/2014033/send-and-receive-a-file-in-socket-programming-in-linux-with-c-c-gcc-g
-
-		while (1 == 1) {  
+		int error = 0;
+		while (error == 0) {  
 			int dataIn = read(fp, &buffer, sizeof(buffer));
 			if (dataIn == 0){
 				break;
@@ -164,6 +164,8 @@ int sendMyFile(char* plainText, char* key, int connection){
 				int dataOut = write(connection, buffPointer, dataIn);
 				if (dataOut <= 0) {
 					printf("Error writing file to socket stream: %d", errno);
+					error = 1;
+					break;
 				}
 				dataIn -= dataOut;
 				buffPointer += dataOut;
@@ -246,7 +248,7 @@ int receiveMessage(int server){
 	
 	int numReceived = recv(server, buffer, maxBuff, 0); 
 	
-	while(endSymbol(buffer, maxBuff) == 0){
+	while(endSymbol(buffer, maxBuff) == -1){
 		printf("%.*s", numReceived, buffer);
 		numReceived = recv(server, buffer, maxBuff, 0);
 	}

@@ -134,7 +134,7 @@ ${echo}
 ${echo} '#-----------------------------------------'
 ${echo} '#Cleaning up - ignore Operation Not Permitted errors'
 killall -q -u $USER otp_*
-rm -f ciphertext*
+#rm -f ciphertext*
 rm -f plaintext*_*
 rm -f key20
 rm -f key70000
