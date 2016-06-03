@@ -107,23 +107,22 @@ int main(int argc, char *argv[])
 
 int checkFile(char *file){
 	int length = 0;
-	int fp = open(file, O_RDONLY);
-	char buffer[sizeof(char)];
+	FILE *fp = fopen(file, "r");
+	char c;
 	int newline = 0;
-	while(read(fp, &buffer, sizeof(char))){
+	while((c = fgetc(fp)) != EOF){
 		length++;
-		if(buffer[0] == '\n'){
+		if(c == '\n'){
 			newline++;
-			if(newline == 2)
-				return -1;
+			if(newline == 2) return -1;
 		}
-		else if((buffer[0] < 'A' || buffer[0] > 'Z') && buffer[0] != ' '){
+		else if((c < 'A' || c > 'Z') && c != ' '){
 			close(fp);
 			return -1;
 		}
 			
 	}
-	close(fp);
+	fclose(fp);
 	return length;
 }
 	
