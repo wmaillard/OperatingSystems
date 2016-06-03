@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 {
 
 
-    char *name = "encoder";
+    char *name = "decoder";
     int errno;
 	char *host = "localhost";
 	
@@ -70,8 +70,8 @@ int main(int argc, char *argv[])
 	
 	if(recv(connection, buffer, maxBuff, 0) != 0){
 		if(!(buffer[0] == 'O' && buffer[1] == 'K')){
-			printf("This program is not authorized to access the requested server\n");
-			return -1;
+			fprintf(stderr, "otp_dec cannot use otp_enc_d on port %s\n", port);
+			return 2;
 		}
 		if(DEBUG == 1) printf("Buffer: %s\n", buffer);
 		if(DEBUG == 1) printf("Size: %d:\n", strlen(buffer));
@@ -241,7 +241,7 @@ int initiateContact(char *name, char* host, char* port){
 //Returns 1 on success, -1 on connections closure
 
 int receiveMessage(int server){
-	int maxBuff = 515;
+	int maxBuff = 500;
 	char buffer[maxBuff];
 	
 	int numReceived = recv(server, buffer, maxBuff, 0); 
@@ -250,7 +250,7 @@ int receiveMessage(int server){
 		printf("%.*s", numReceived, buffer);
 		numReceived = recv(server, buffer, maxBuff, 0);
 	}
-	buffer[strlen(buffer) - 1] = '\0';
+	buffer[endSymbol(buffer, maxBuff)] = '\0';
 	printf("%.*s\n", numReceived - 1, buffer);
 }
 
@@ -258,9 +258,9 @@ int endSymbol(char* buff, int length){
 	int i;
 	for(i = 0; i < length; i++){
 		if(buff[i] == '*')
-			return -1;
+			return i;
 	}
-	return 0;
+	return -1;
 }
 
 //Function: receiveMessage

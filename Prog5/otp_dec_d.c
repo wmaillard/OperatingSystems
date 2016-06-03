@@ -17,7 +17,7 @@ int startUp(const char *port);
 int sendMessage(int client, char* message, int messLength);
 int acceptConnection(int server);
 int receiveMessage(int client, char* buffer, int maxBuff);
-int encode(char* buffer);
+int decode(char* buffer);
 char getChar(int num);
 int getInt(char c);
 void prompt();
@@ -66,14 +66,14 @@ main(int argc, char * argv[]){
 		else if(receiveMessage(connection, buffer, sizeof(buffer)) == -1){	//Receive first message 
 			fprintf(stderr, "Error: Problems receiving first message\n");
 		}
-		else if(strcmp(buffer, "encoder") != 0){
+		else if(strcmp(buffer, "decoder") != 0){
 			//Take care of this TODO TODO
 			fprintf(stderr, "An unauthorized program tried to connect\n");
 			sendMessage(connection, "FAIL", 4);
 			shutdown(connection, 2);
 		}
 		else{
-			newPort = rand() % 30000 + 10000; //10,000 to 40,000 for safety
+			newPort = rand() % 30000 + 10000 + 1 + numBackground; //10,001 to 40,001 for safety
 			sprintf(sNewPort, "%i", newPort);
 			sendMessage(connection, "OK", sizeof("OK"));
 			sendMessage(connection, sNewPort, strlen(sNewPort));
@@ -93,7 +93,7 @@ main(int argc, char * argv[]){
 			if(pid == 0){
 				connection = acceptConnection(newServer);
 				receiveFile(connection, buffer, sizeof(buffer));
-				int messLength = encode(buffer);
+				int messLength = decode(buffer);
 				sendMessage(connection, buffer, messLength);
 				sendMessage(connection, "*", sizeof("*"));
 				_Exit(0);
@@ -144,7 +144,7 @@ char getChar(int num){
 		return num + 'A';
 	}
 }
-int encode(char* buffer){
+int decode(char* buffer){
 	int i = 0;
 	for(i; i < strlen(buffer); i++){
 		if(buffer[i] == '\n'){
@@ -162,7 +162,7 @@ int encode(char* buffer){
 	
 	for(i = 0; i < messLength; i++){
 		int origChar = getInt(buffer[i]);
-		origChar += getInt(buffer[keyStart + i]);
+		origChar -= getInt(buffer[keyStart + i]);
 		if(origChar < 0){
 			origChar += 27;
 		}

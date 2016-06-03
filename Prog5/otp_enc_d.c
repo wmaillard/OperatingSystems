@@ -73,7 +73,7 @@ main(int argc, char * argv[]){
 			shutdown(connection, 2);
 		}
 		else{
-			newPort = rand() % 30000 + 10000; //10,000 to 40,000 for safety
+			newPort = rand() % 30000 + 20000 + numBackground; 
 			sprintf(sNewPort, "%i", newPort);
 			sendMessage(connection, "OK", sizeof("OK"));
 			sendMessage(connection, sNewPort, strlen(sNewPort));
