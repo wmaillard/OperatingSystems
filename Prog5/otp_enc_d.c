@@ -72,17 +72,21 @@ main(int argc, char * argv[]){
 			sendMessage(connection, "FAIL", 4);
 			shutdown(connection, 2);
 		}
-		else{
-			newPort = rand() % 30000 + 20000 + numBackground; 
-			sprintf(sNewPort, "%i", newPort);
+		else{	
+			int i = 0;
+			do{
+				newPort = rand() % 10000 + 20000 + numBackground; //20,000 - 30,000 + numBackground
+				sprintf(sNewPort, "%i", newPort);
+				i++;
+				if(i > 10000){
+					fprintf(stderr, "Error: Tried to connect on 10,000 random ports, all failed\n");
+					return 2;
+				}
+			}while((newServer = startUp(sNewPort)) == -1);  //Try 10,000 times
+			
 			sendMessage(connection, "OK", sizeof("OK"));
 			sendMessage(connection, sNewPort, strlen(sNewPort));
 			printf("new port: %s\n", sNewPort);
-			newServer = startUp(sNewPort);
-			if(newServer == -1){
-				fprintf(stderr, "Error: Tried port %i, but it was taken :(. ", newPort);
-				_Exit(1);
-			}
 			
 			pid = fork();
 			if(pid < 0){
