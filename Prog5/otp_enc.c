@@ -68,8 +68,18 @@ int main(int argc, char *argv[])
     
 	int maxBuff = 256;   
     char buffer[256]; 
+	size_t index = 0;
 	
-	if(recv(connection, buffer, maxBuff, 0) != 0){
+	while (index < maxBuff && recv(connection, &buffer[index], 1, 0) == 1){
+		
+		if(buffer[index] == '*'){
+			buffer[index] == '\0';
+			break;
+		}
+		index++;
+	}
+	
+	if(1 == 1){
 		if(!(buffer[0] == 'O' && buffer[1] == 'K')){			//Receive a message, if it starts with OK, then proceed
 			fprintf(stderr, "Error: otp_enc cannot use otp_dec_d on port %s\n", port);
 			return 2;

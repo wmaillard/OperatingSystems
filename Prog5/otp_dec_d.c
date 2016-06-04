@@ -91,6 +91,7 @@ main(int argc, char * argv[]){
 			
 			sendMessage(connection, "OK", sizeof("OK"));		//Send go ahead to client
 			sendMessage(connection, sNewPort, strlen(sNewPort));		//Send new port to client
+			sendMessage(connection, "*", sizeof("*"));
 			if(DEBUG==1)printf("new port: %s\n", sNewPort);
 			
 			pid = fork();											//Fork off child to for file transfer

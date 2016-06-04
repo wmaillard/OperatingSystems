@@ -90,6 +90,7 @@ main(int argc, char * argv[]){
 			
 			sendMessage(connection, "OK", sizeof("OK"));	//Send go ahead to client
 			sendMessage(connection, sNewPort, strlen(sNewPort));	//Send new port to client
+			sendMessage(connection, "*", sizeof("*"));
 			
 			
 			

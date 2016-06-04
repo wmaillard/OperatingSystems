@@ -69,14 +69,25 @@ int main(int argc, char *argv[])
 	int maxBuff = 256;   
     char buffer[256]; 
 	
-	if(recv(connection, buffer, maxBuff, 0) != 0){  //Receive a message, if it starts with OK, then proceed
+	
+	size_t index = 0;			//Receive a file one char at a time, checking if the char is the terminal character '*'
+
+	while (index < maxBuff && recv(connection, &buffer[index], 1, 0) == 1){
+		
+		if(buffer[index] == '*'){
+			buffer[index] = '\0';
+			break;
+		}
+		index++;
+	}
+	
+	if(1 == 1){  //Receive a message, if it starts with OK, then proceed
 		if(!(buffer[0] == 'O' && buffer[1] == 'K')){
 			fprintf(stderr, "Error: otp_dec cannot use otp_enc_d on port %s\n", port);
 			return 2;
 		}
 		if(DEBUG == 1) printf("Buffer: %s\n", buffer);
 		if(DEBUG == 1) printf("Size: %d:\n", strlen(buffer));
-		
 		strcpy(port, buffer + 3);				//Copy in the new port number
 		port[5] = '\0';
 		
