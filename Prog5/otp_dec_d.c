@@ -69,7 +69,7 @@ main(int argc, char * argv[]){
 		if(connection == -1){
 			if(DEBUG==1)fprintf(stderr, "Error: Client tried to connect but failed\n");
 		}
-		else if(receiveMessage(connection, buffer, sizeof(buffer)) == -1){	//Receive first message 
+		else if(receiveFile(connection, buffer, sizeof(buffer)) == -1){	//Receive first message 
 			if(DEBUG==1)fprintf(stderr, "Error: Problems receiving first message\n");
 		}
 		else if(strcmp(buffer, "decoder") != 0){						//Reject if the client is not the right program
@@ -123,8 +123,10 @@ int receiveFile(int connection, char* buffer, int length){
 
 	while (index < MAXBUFF && read(connection, &buffer[index], 1) == 1)
 	{
-		if (index > 0 && buffer[index] == '*')
+		if (index > 0 && buffer[index] == '*'){
+			buffer[index] = '\0';
 			break;
+		}
 		index++;
 	}	
 	

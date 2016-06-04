@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 {
 
 
-    char *name = "encoder";
+    char *name = "encoder*";
     int errno;
 	char host[256];
 	gethostname(host, sizeof(host) - 1);
