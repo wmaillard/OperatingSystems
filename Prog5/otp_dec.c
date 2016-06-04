@@ -255,7 +255,7 @@ int receiveMessage(int server){
 		numReceived = recv(server, buffer, maxBuff, 0);		//In this loop means that the message is longer than 500 bytes
 	}
 	buffer[endSymbol(buffer, maxBuff)] = '\0';
-	printf("%.*s\n", numReceived - 1, buffer);
+	printf("%s\n", buffer);
 }
 
 //Return the location of '*', or -1 if it does not exits
