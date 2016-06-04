@@ -250,11 +250,11 @@ int receiveMessage(int server){
 	
 	int numReceived = recv(server, buffer, maxBuff, 0); 
 	
-	while(endSymbol(buffer, maxBuff) == -1){			//Receive a message and print it until the end symbol '*' is hit
+	while(endSymbol(buffer, numReceived) == -1){			//Receive a message and print it until the end symbol '*' is hit
 		printf("%.*s", numReceived, buffer);
 		numReceived = recv(server, buffer, maxBuff, 0);		//In this loop means that the message is longer than 500 bytes
 	}
-	buffer[endSymbol(buffer, maxBuff)] = '\0';
+	buffer[endSymbol(buffer, numReceived)] = '\0';
 	printf("%s\n", buffer);
 }
 
