@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 	
 	size_t index = 0;			//Receive a file one char at a time, checking if the char is the terminal character '*'
 
-	while (index < maxBuff && recv(connection, &buffer[index], 1, 0) == 1){
+	while (index < maxBuff && recv(connection, &buffer[index], 1, 0) == 1){   //Get message, message ends in *, replace that with null term
 		
 		if(buffer[index] == '*'){
 			buffer[index] = '\0';

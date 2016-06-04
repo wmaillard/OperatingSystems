@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     char buffer[256]; 
 	size_t index = 0;
 	
-	while (index < maxBuff && recv(connection, &buffer[index], 1, 0) == 1){
+	while (index < maxBuff && recv(connection, &buffer[index], 1, 0) == 1){ //Get message, message ends in *, replace that with null term
 		
 		if(buffer[index] == '*'){
 			buffer[index] == '\0';
