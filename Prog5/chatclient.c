@@ -126,7 +126,7 @@ int initiateContact(char *name, char* host, char* port){
 	char buffer[256];
 	int maxBuff = 256;
 
-    status = getaddrinfo(host, port, &hints, &servinfo);
+    status = getaddrinfo(gethostbyname(host), port, &hints, &servinfo);
 
     if(status != 0){
         printf("Error with getaddrinfo: %s\n", gai_strerror(status));

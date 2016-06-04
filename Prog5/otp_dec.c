@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
 
 	char *name = "decoder";						//This programs identifier
     int errno;
-	char *host = "localhost";
+	char host[256];
+	gethostname(host, sizeof(host) - 1);
 	
 											//Check number of command line arguments
 	if(argc != 4){
