@@ -114,22 +114,19 @@ main(int argc, char * argv[]){
 	}
 }
 int receiveFile(int connection, char* buffer, int length){
-	char tempBuff[100000];
-	recv(connection, tempBuff, sizeof(tempBuff), 0);
-	strcpy(buffer, tempBuff);
-	while(tempBuff[strlen(tempBuff) - 1] != '*'){
-		recv(connection, tempBuff, sizeof(tempBuff), 0);
-		strcat(buffer, tempBuff);
+	
+	size_t buf_idx = 0;
+
+
+	while (buf_idx < MAXBUFF && 1 == read(connection, &buffer[buf_idx], 1))
+	{
+    if (buf_idx > 0          && 
+  '*' == buffer[buf_idx])
+    {
+        break;
+    }
+    buf_idx++;
 	}
-	tempBuff[0, strlen(tempBuff) - 1] = '\0';
-	strcat(buffer, tempBuff);
-	
-
-
-	return 0;
-	
-
-
 }
 
 
@@ -151,20 +148,22 @@ char getChar(int num){
 }
 int decode(char* buffer){
 	int i = 0;
-	for(i; i < strlen(buffer); i++){
+	fprintf("%s", buffer); //for some reason this saves it?
+	for(i; i < MAXBUFF; i++){
 		if(buffer[i] == '\n'){
 			break;
 		}
 	}
 	int messLength = i;
 	int keyStart = i + 1;
-	for(i; i < strlen(buffer); i++){
+	i++; //not in enc yet
+	for(i; i < MAXBUFF; i++){
 		if(buffer[i] == '\n'){
 			break;
 		}
 	}
 	int keyLength = i - keyStart;
-	
+	fprintf(stderr, "Messlength: %d", messLength);
 	for(i = 0; i < messLength; i++){
 		int origChar = getInt(buffer[i]);
 		origChar -= getInt(buffer[keyStart + i]);

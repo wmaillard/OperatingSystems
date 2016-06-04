@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 		if(DEBUG == 1) printf("New port %s\n", port);
 		if(DEBUG == 1) printf("Size: %d:\n", strlen(port));
 		if(shutdown(connection, 2) != 0){
-			printf("Error shutting down connection: %d", errno);
+			//printf("Error shutting down connection: %d", errno);
 		}
 		name = "";
 		connection = initiateContact(name, host, port);
@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
 	
 
     if(shutdown(connection, 2) != 0){
-		printf("Error shutting down connection: %d", errno);
+		//fprintf("Error shutting down connection: %d", errno);
 	}
    
     return 0;

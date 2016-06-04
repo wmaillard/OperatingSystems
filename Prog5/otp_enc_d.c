@@ -113,6 +113,24 @@ main(int argc, char * argv[]){
 	}
 }
 int receiveFile(int connection, char* buffer, int length){
+	
+	size_t buf_idx = 0;
+
+
+	while (buf_idx < MAXBUFF && 1 == read(connection, &buffer[buf_idx], 1))
+	{
+    if (buf_idx > 0          && 
+  '*' == buffer[buf_idx])
+    {
+        break;
+    }
+    buf_idx++;
+}	
+	
+	
+	
+	
+	/*
 	char tempBuff[100000];
 	recv(connection, tempBuff, sizeof(tempBuff), 0);
 	strcpy(buffer, tempBuff);
@@ -122,7 +140,7 @@ int receiveFile(int connection, char* buffer, int length){
 	}
 	tempBuff[0, strlen(tempBuff) - 1] = '\0';
 	strcat(buffer, tempBuff);
-	
+	*/
 
 
 	return 0;
