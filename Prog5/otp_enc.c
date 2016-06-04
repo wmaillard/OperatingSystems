@@ -1,10 +1,10 @@
 /*William Maillard
-CS 372-400
-Project 1
-5/1/16
-Description: This is the client side of a chat application that allows a client and 
-server to communicate via the commandline.  More information about set-up, and command-line
-arguments can be found in the README.txt file.
+CS 344-400
+otp_enc
+6/3/16
+Description: This program takes the following arguments: otp_enc <PLAINTEXT> <KEY> <PORT> and sends
+the PLAINTEXT file and the KEY file on the PORT  to otp_enc_d which then returns an encrypted version of 
+PLAINTEXT.  This program then prints out that encrypted message.
 */
 
 #include <stdio.h>
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 											//Check number of command line arguments
 	if(argc != 4){
 		printf("Please follow this format: otp_enc <PLAINTEXT> <KEY> <PORT>\n");
-		return -1;
+		return 1;
 	}
 	char *plainText = argv[1]; 	
 	char *key = argv[2];
@@ -45,9 +45,9 @@ int main(int argc, char *argv[])
 				
 
 
-	int checkKey = checkFile(key);
+	int checkKey = checkFile(key);							//Check that the characters in each file are correct and get the number of characters in each file if they are.
 	int checkPlain = checkFile(plainText);
-	if(checkKey == -1 || checkPlain == -1 || checkPlain > checkKey){
+	if(checkKey == -1 || checkPlain == -1 || checkPlain > checkKey){			//If the characters are wrong or the key is too short, throw an error
 		if(checkPlain > checkKey)
 			fprintf(stderr, "Error: Your key: '%s' is too short\n", key);
 		else if(checkKey == -1)
@@ -58,10 +58,10 @@ int main(int argc, char *argv[])
 	}
 	
     //Most of the set up and chat interface come from Beej's guide http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html
-	int connection = initiateContact(name, host, port);
+	int connection = initiateContact(name, host, port);  //Make contact with the server
 	if(connection == -1){
 		fprintf(stderr, "Error: could not contact otp_enc_d on port %s\n", port);
-		return 1;
+		return 2;
 	}
 
     
@@ -69,41 +69,41 @@ int main(int argc, char *argv[])
     char buffer[256]; 
 	
 	if(recv(connection, buffer, maxBuff, 0) != 0){
-		if(!(buffer[0] == 'O' && buffer[1] == 'K')){
-			fprintf(stderr, "otp_enc cannot use otp_dec_d on port %s\n", port);
+		if(!(buffer[0] == 'O' && buffer[1] == 'K')){			//Receive a message, if it starts with OK, then proceed
+			fprintf(stderr, "Error: otp_enc cannot use otp_dec_d on port %s\n", port);
 			return 2;
 		}
 		if(DEBUG == 1) printf("Buffer: %s\n", buffer);
 		if(DEBUG == 1) printf("Size: %d:\n", strlen(buffer));
-		strcpy(port, buffer + 3);
+		strcpy(port, buffer + 3);								//Copy in the new port number
 		port[5] = '\0';
 		if(DEBUG == 1) printf("New port %s\n", port);
 		if(DEBUG == 1) printf("Size: %d:\n", strlen(port));
-		if(shutdown(connection, 2) != 0){
-			//printf("Error shutting down connection: %d", errno);
+		if(shutdown(connection, 2) != 0){						//Shutdown old connection
+			if(DEBUG == 1)printf("Error shutting down connection: %d", errno);
 		}
 		name = "";
-		connection = initiateContact(name, host, port);
+		connection = initiateContact(name, host, port);			//Connect on the new port
 	}
 	else{
 		printf("Error communicating with server: %d", errno);
 		return -1;
 	}
 
-	sendMyFile(plainText, key, connection);
-	sendMessage("*", connection);
-	receiveMessage(connection);
+	sendMyFile(plainText, key, connection);		//Send the key and plaintext
+	sendMessage("*", connection);				//End of message so send *
+	receiveMessage(connection);					//Receive the encrypted message
 	
 
     if(shutdown(connection, 2) != 0){
-		//printf("Error shutting down connection: %d", errno);
+		if(DEBUG == 1)printf("Error shutting down connection: %d", errno);
 	}
    
     return 0;
 }
 
 
-
+//Check that the file only has one newline and only valid characters
 
 int checkFile(char *file){
 	int length = 0;
@@ -129,7 +129,7 @@ int checkFile(char *file){
 
 //Function: sendMyFile
 //Arguments: files and connection number
-//Send a message
+//Send a file
 //Returns -1 if there was a problem and 0 on success.
 
 int sendMyFile(char* plainText, char* key, int connection){  
@@ -150,19 +150,19 @@ int sendMyFile(char* plainText, char* key, int connection){
 										//The idea in this while loop was borrowed from here: http://stackoverflow.com/questions/2014033/send-and-receive-a-file-in-socket-programming-in-linux-with-c-c-gcc-g
 		int error = 0;
 		while (error == 0) {  
-			int dataIn = read(fp, &buffer, sizeof(buffer));
+			int dataIn = read(fp, &buffer, sizeof(buffer));			//Read in data from the file
 			if (dataIn == 0){
 				break;
 			}
 			if (dataIn < 0) {
-				printf("Error reading file to send: %d\n", errno);
+				if(DEBUG == 1)printf("Error reading file to send: %d\n", errno);
 				return -1;
 			}
 			void *buffPointer = &buffer;
 			while (dataIn > 0) {
-				int dataOut = write(connection, buffPointer, dataIn);
+				int dataOut = write(connection, buffPointer, dataIn);			//Send read in data to the server
 				if (dataOut <= 0) {
-					printf("Error writing file to socket stream: %d", errno);
+					if(DEBUG == 1)printf("Error writing file to socket stream: %d", errno);
 					error = 1;
 					break;
 				}
@@ -200,10 +200,10 @@ int initiateContact(char *name, char* host, char* port){
 	char buffer[256];
 	int maxBuff = 256;
 
-    status = getaddrinfo(host, port, &hints, &servinfo);
+    status = getaddrinfo(host, port, &hints, &servinfo);			//Get address info
 
     if(status != 0){
-        printf("Error with getaddrinfo: %s\n", gai_strerror(status));
+        if(DEBUG == 1)printf("Error with getaddrinfo: %s\n", gai_strerror(status));
         return -1;
     }
 
@@ -212,13 +212,13 @@ int initiateContact(char *name, char* host, char* port){
     server = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
 
     if(server == -1){
-         printf("Error getting the file descripter: %i\n", errno);
+         if(DEBUG == 1)printf("Error getting the file descripter: %i\n", errno);
     }
 
     //Connect
 
     if(connect(server, servinfo->ai_addr, servinfo->ai_addrlen) == -1){
-        printf("Error connecting: %i\n", errno);
+        if(DEBUG == 1)printf("Error connecting: %i\n", errno);
         return -1;
     }
 	
@@ -227,7 +227,7 @@ int initiateContact(char *name, char* host, char* port){
 
 
 		if(send(server, buffer, sizeof(name), 0) == -1){
-			printf("Error sending message: %i\n", errno);
+			if(DEBUG == 1)printf("Error sending message: %i\n", errno);
 			return -1;
 		}
 	}
@@ -236,7 +236,7 @@ int initiateContact(char *name, char* host, char* port){
 }
 
 //Function: receiveMessage
-//Arguments: The username and the server number
+//Arguments: The server number
 //Receives a message from the server and prints it
 //with the username prepended.
 //Returns 1 on success, -1 on connections closure
@@ -247,14 +247,15 @@ int receiveMessage(int server){
 	
 	int numReceived = recv(server, buffer, maxBuff, 0); 
 	
-	while(endSymbol(buffer, maxBuff) == -1){
+	while(endSymbol(buffer, maxBuff) == -1){			//Receive a message and print it until the end symbol '*' is hit
 		printf("%.*s", numReceived, buffer);
-		numReceived = recv(server, buffer, maxBuff, 0);
+		numReceived = recv(server, buffer, maxBuff, 0);		//In this loop means that the message is longer than 500 bytes
 	}
 	buffer[endSymbol(buffer, maxBuff)] = '\0';
 	printf("%.*s\n", numReceived - 1, buffer);
 }
 
+//Return the location of '*', or -1 if it does not exits
 int endSymbol(char* buff, int length){
 	int i;
 	for(i = 0; i < length; i++){
@@ -264,9 +265,9 @@ int endSymbol(char* buff, int length){
 	return -1;
 }
 
-//Function: receiveMessage
-//Arguments: The username and the server number
-//Get a message to send, prepend username, and send it
+//Function: sendMessage
+//Arguments: A message pointer and the server number
+//Send a message
 //Returns 1 on success, 0 on error, and -1 on connection closure
 
 int sendMessage(char *message, int server){
@@ -279,7 +280,7 @@ int sendMessage(char *message, int server){
 	strcat(buffer, message);
 
 	if(send(server, buffer, sizeof(message), 0) == -1){
-		printf("Error sending message: %i", errno);
+		if(DEBUG == 1)printf("Error sending message: %i", errno);
 		return 0;
 	}
 
