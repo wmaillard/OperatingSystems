@@ -103,8 +103,9 @@ main(int argc, char * argv[]){
 				connection = acceptConnection(newServer);				//Open new connection
 				receiveFile(connection, buffer, sizeof(buffer));		//Receive file and key
 				int messLength = decode(buffer);						//Decode file and get length
-				sendMessage(connection, buffer, messLength);			//Send back decoded file
-				sendMessage(connection, "*", sizeof("*"));				//Send terminal char
+				buffer[messLength] = '*';
+				sendMessage(connection, buffer, messLength + 1);			//Send back decoded file
+
 				_Exit(0);
 			}
 

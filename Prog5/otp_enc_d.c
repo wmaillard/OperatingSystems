@@ -90,6 +90,9 @@ main(int argc, char * argv[]){
 			
 			sendMessage(connection, "OK", sizeof("OK"));	//Send go ahead to client
 			sendMessage(connection, sNewPort, strlen(sNewPort));	//Send new port to client
+			
+			
+			
 			if(DEBUG==1)printf("new port: %s\n", sNewPort);
 			
 			pid = fork();											//Fork off child to for file transfer
@@ -102,8 +105,9 @@ main(int argc, char * argv[]){
 				connection = acceptConnection(newServer);				//Open new connection
 				receiveFile(connection, buffer, sizeof(buffer));		//Receive file and key
 				int messLength = encode(buffer);						//Decode file and get length
-				sendMessage(connection, buffer, messLength);			//Send back decoded file
-				sendMessage(connection, "*", sizeof("*"));				//Send terminal char
+				buffer[messLength] = '*';
+				sendMessage(connection, buffer, messLength + 1);			//Send back decoded file
+				//sendMessage(connection, "*", sizeof("*"));				//Send terminal char
 				_Exit(0);
 			}
 
